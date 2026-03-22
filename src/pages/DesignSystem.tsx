@@ -220,15 +220,22 @@ const DesignSystem = () => {
               <div className="space-y-4 text-sm">
                 <div className="p-4 rounded-lg border border-border">
                   <p className="font-medium text-foreground">Section Padding (vertical)</p>
-                  <p className="text-muted-foreground mt-1">Desktop: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">py-20</code> (80px) — Mobile: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">py-12</code> (48px)</p>
+                  <p className="text-muted-foreground mt-1">Mobile: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">py-12</code> (48px) → Desktop: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">py-20</code> (80px)</p>
+                  <p className="text-muted-foreground mt-0.5 font-mono text-xs">py-12 sm:py-20</p>
+                </div>
+                <div className="p-4 rounded-lg border border-border">
+                  <p className="font-medium text-foreground">Container Padding</p>
+                  <p className="text-muted-foreground mt-1">Mobile: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">px-4</code> → Tablet: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">px-6</code> → Desktop: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">px-8</code></p>
+                  <p className="text-muted-foreground mt-0.5 font-mono text-xs">px-4 sm:px-6 lg:px-8</p>
                 </div>
                 <div className="p-4 rounded-lg border border-border">
                   <p className="font-medium text-foreground">Container Max Width</p>
-                  <p className="text-muted-foreground mt-1"><code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">max-w-[1400px]</code> with <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">px-8</code> padding</p>
+                  <p className="text-muted-foreground mt-1"><code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">max-w-7xl</code> (1280px) or <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">max-w-[1400px]</code></p>
                 </div>
                 <div className="p-4 rounded-lg border border-border">
                   <p className="font-medium text-foreground">Card Internal Padding</p>
-                  <p className="text-muted-foreground mt-1"><code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">p-6</code> (24px) consistent on all sides</p>
+                  <p className="text-muted-foreground mt-1">Mobile: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">p-4</code> → Desktop: <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">p-6</code></p>
+                  <p className="text-muted-foreground mt-0.5 font-mono text-xs">p-4 sm:p-6</p>
                 </div>
                 <div className="p-4 rounded-lg border border-border">
                   <p className="font-medium text-foreground">Heading to Content Gap</p>
