@@ -35,6 +35,8 @@ import {
   servicesTabsCode,
   consultationCtaCode,
   logoCloudCode,
+  resourceBlogCode,
+  resourceDownloadsCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
