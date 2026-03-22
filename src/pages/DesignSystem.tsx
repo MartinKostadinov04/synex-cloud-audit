@@ -52,6 +52,7 @@ import {
   practicalGuideCode,
   batteryPassportOverviewCode,
   heroGridBgCode,
+  pageHeadersCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
