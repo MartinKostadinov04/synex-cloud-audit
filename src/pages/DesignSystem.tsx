@@ -431,6 +431,14 @@ const DesignSystem = () => {
             <SectionShowcase name="Consulting — Service Navigation" code={consultingNavCode}>
               <ConsultingNavSection />
             </SectionShowcase>
+            <SectionShowcase name="Contact — Inline Section" code={contactSectionCode}>
+              <ContactSection />
+            </SectionShowcase>
+            <SectionShowcase name="Contact — Popup Dialog" code={contactDialogCode}>
+              <div className="flex items-center justify-center py-16 bg-background">
+                <ContactDialog />
+              </div>
+            </SectionShowcase>
           </div>
         </Section>
       </main>
