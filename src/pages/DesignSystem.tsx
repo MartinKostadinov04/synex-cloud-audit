@@ -253,10 +253,10 @@ Form containers: \`rounded-xl sm:rounded-2xl\`
 
 | Breakpoint | Width | Device | Key Layout Changes |
 |---|---|---|---|
-| \`base\` | 0–639px | Mobile portrait | Single column, sheet drawer nav, footer nav hidden, smallest padding |
+| \`base\` | 0–639px | Mobile portrait | Single column, sheet drawer nav, stacked footer nav, smallest padding |
 | \`sm\` (640px) | 640–767px | Mobile landscape | 2-col grids begin, headings scale up, card padding increases |
-| \`md\` (768px) | 768–1023px | Tablet portrait | Footer nav columns visible, 2-col forms, blog grid 2-col |
-| \`lg\` (1024px) | 1024–1279px | Tablet landscape | Navbar shows full links (no drawer), 3-col grids, bento 6-col, hero split layout |
+| \`md\` (768px) | 768–1023px | Tablet portrait | Footer nav 2-col, 2-col forms, blog grid 2-col |
+| \`lg\` (1024px) | 1024–1279px | Tablet landscape | Navbar shows full links (no drawer), 3-col grids, bento 6-col, hero split layout, footer nav 3-col |
 | \`xl\` (1280px) | 1280–1399px | Desktop | Full layout, content at max width |
 | \`2xl\` (1400px) | 1400px+ | Large desktop | Container caps at 1400px |
 
@@ -308,13 +308,14 @@ Every page section follows this pattern:
 | Bento grid | 1 col | 1 col | 6-col | \`grid-cols-1 lg:grid-cols-6\` |
 | Two-column | 1 col | 2 col | 2 col | \`grid-cols-1 sm:grid-cols-2\` |
 | Hero split | Stacked | Stacked | Side-by-side | \`lg:flex lg:items-center\` |
-| Footer nav | Hidden | 2-col grid | 3-col grid | \`hidden md:grid grid-cols-2 lg:grid-cols-3\` |
+| Footer nav | 2-col | 2-col | 3-col | \`grid grid-cols-2 lg:grid-cols-3\` |
+| Tabs (with image) | Stacked | Stacked | 2-col | \`grid-cols-1 lg:grid-cols-2\` |
 
 ### Alternating Section Backgrounds
 
 Alternate between these for visual rhythm:
 - \`bg-background\` (white)
-- \`bg-secondary/30\` or \`bg-secondary/50\` (light grey)
+- \`bg-secondary/30\` or \`bg-secondary/40\` (light grey)
 - \`bg-gradient-to-br from-muted via-muted/40 to-primary/10\` (gradient sections)
 
 ---
@@ -323,7 +324,7 @@ Alternate between these for visual rhythm:
 
 ### Navbar
 - Sticky: \`sticky top-0 z-50\`
-- Backdrop: \`bg-background/80 backdrop-blur-md\`
+- Backdrop: \`bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60\`
 - Mobile: Sheet drawer with accordion menus (triggers at \`< lg\`)
 - Desktop: Full horizontal links with mega-menu dropdowns on hover
 - Auth buttons: "Log in" (ghost) + "Sign up" (primary) at right
@@ -331,7 +332,7 @@ Alternate between these for visual rhythm:
 ### Footer
 - Background: \`bg-secondary/30\` with \`border-t border-border\`
 - Logo + tagline in left column
-- Navigation columns: \`hidden md:grid\` — 3 columns (Services, Company, Legal)
+- Navigation columns: 3 columns (Services, Company, Legal) — **visible on all devices**, stacks to 2-col grid on mobile, 3-col on lg+
 - Newsletter: subscribe form with \`Input\` + \`Button\`
 - Bottom: social icons + copyright
 - Social icons: \`size-5\` with \`text-muted-foreground hover:text-foreground transition-colors\`
@@ -339,10 +340,10 @@ Alternate between these for visual rhythm:
 ### Page Headers (4 variants)
 All share \`PageHeaderProps\`: \`{ tag: string; title: string; description?: string }\`
 
-1. **Watermark**: Faded "EU" watermark text (hidden on mobile via \`hidden sm:block\`)
-2. **CloudTrail**: Orange gradient blob behind content
-3. **HeroGrid**: SVG grid pattern + gradient blob
-4. **AccentBar**: Orange \`w-1\` left border accent
+1. **Watermark** (\`PageHeaderWatermark\`): Faded "EU" watermark text (hidden on mobile via \`hidden sm:block\`)
+2. **CloudTrail** (\`PageHeaderCloudTrail\`): Orange gradient blob behind content
+3. **HeroGrid** (\`PageHeaderHeroGrid\`): SVG grid pattern + gradient blob
+4. **AccentBar** (\`PageHeaderAccentBar\`): Orange \`w-1\` left border accent
 
 ### Cards
 
@@ -391,6 +392,42 @@ All share \`PageHeaderProps\`: \`{ tag: string; title: string; description?: str
 - Use \`sm:grid-cols-2\` for side-by-side fields on tablet+
 - Submit buttons: \`mt-8 flex justify-end\`
 
+### FAQ Section (Accordion)
+
+\`\`\`tsx
+import FAQSection from "@/components/FAQSection";
+
+<FAQSection
+  title="Frequently asked questions"
+  subtitle="Optional subtitle text"
+  faqs={[
+    { question: "What is the EU Battery Regulation?", answer: "The EU Battery Regulation..." },
+    { question: "When does it take effect?", answer: "Key deadlines start in..." },
+  ]}
+/>
+\`\`\`
+
+- Uses Radix Accordion under the hood
+- Each item: rounded-lg border, px-6, bg-card, opens with chevron rotation
+- Scroll-fade entrance animation built in
+
+### Services Tabs Section
+
+\`\`\`tsx
+import ServicesTabsSection from "@/components/battery-reg/ServicesTabsSection";
+import type { TabData } from "@/components/battery-reg/ServicesTabsSection";
+
+// Basic (text only)
+<ServicesTabsSection />
+
+// With image on right
+<ServicesTabsSection withImage data={customTabs} />
+\`\`\`
+
+- \`TabData\` interface: \`{ value, label, icon, title, description, features: string[], image?: string }\`
+- When \`withImage\` is true and a tab has an \`image\`, renders 2-col layout on lg+
+- Tab triggers: 2-col on mobile, 4-col on md+
+
 ### Hero Grid Background (reusable)
 
 \`\`\`tsx
@@ -421,13 +458,90 @@ import HeroGridBackground from "@/components/ui/hero-grid-background";
 
 ---
 
-## 10. Animation Rules
+## 10. Animation System
 
-- **Scroll-triggered fade-in**: The only approved animation pattern. Use the \`use-scroll-fade\` hook.
-- **Hover states**: \`transition-colors\` on links, \`hover:text-foreground\` from \`text-muted-foreground\`
-- **No parallax** — ever
-- **No bounce, stagger, or complex entrance animations**
-- **Progress bars**: \`transition-all duration-700\` for width changes
+### Philosophy
+Add life without breaking flow. Every animation uses \`ease-out\` timing and respects professional B2B tone.
+
+### Keyframe Animations (Tailwind classes)
+
+| Animation | Class | Duration | Use Case |
+|---|---|---|---|
+| Fade in | \`animate-fade-in\` | 300ms | General reveals |
+| Fade in up | \`animate-fade-in-up\` | 500ms | Section content reveals |
+| Fade in down | \`animate-fade-in-down\` | 500ms | Dropdown/header reveals |
+| Fade in left | \`animate-fade-in-left\` | 500ms | Layout-aware left reveals |
+| Fade in right | \`animate-fade-in-right\` | 500ms | Layout-aware right reveals |
+| Fade out | \`animate-fade-out\` | 300ms | Exit transitions |
+| Scale in | \`animate-scale-in\` | 200ms | Modals, tooltips, popovers |
+| Scale out | \`animate-scale-out\` | 200ms | Modal/tooltip exits |
+| Enter (combo) | \`animate-enter\` | 300ms | Fade + scale combined entrance |
+| Exit (combo) | \`animate-exit\` | 300ms | Fade + scale combined exit |
+| Slide in right | \`animate-slide-in-right\` | 300ms | Sheet/drawer from right |
+| Slide in left | \`animate-slide-in-left\` | 300ms | Panel from left |
+| Float | \`animate-float\` | 3s loop | Decorative floating elements |
+| Pulse soft | \`animate-pulse-soft\` | 2s loop | Subtle attention indicators |
+| Shimmer | \`animate-shimmer\` | 2s loop | Loading skeletons (pair with \`bg-shimmer\`) |
+| Accordion down | \`animate-accordion-down\` | 200ms | Accordion/collapsible open |
+| Accordion up | \`animate-accordion-up\` | 200ms | Accordion/collapsible close |
+
+### Utility Classes (CSS)
+
+| Class | Effect | Use Case |
+|---|---|---|
+| \`.stagger-1\` to \`.stagger-6\` | \`animation-delay\` 50ms–300ms | Sequential card reveals |
+| \`.hover-scale\` | \`scale(1.05)\` on hover | Interactive cards |
+| \`.hover-lift\` | \`translateY(-4px) + shadow-md\` on hover | Elevated interactive cards |
+| \`.story-link\` | Underline slides in from left on hover | Navigation and inline links |
+| \`.bg-shimmer\` | Gradient sweep background | Loading skeleton states |
+
+### Stagger Pattern
+
+Apply \`opacity-0\` initially, then \`animate-fade-in-up\` with \`stagger-N\`:
+
+\`\`\`tsx
+{items.map((item, i) => (
+  <Card key={i} className={\`opacity-0 animate-fade-in-up stagger-\${i + 1}\`}>
+    {/* content */}
+  </Card>
+))}
+\`\`\`
+
+### Scroll-Triggered Reveals (Primary Pattern)
+
+Use the \`useScrollFade\` hook for one-shot scroll reveals:
+
+\`\`\`tsx
+import { useScrollFade } from "@/hooks/use-scroll-fade";
+
+const MySection = () => {
+  const { ref, isVisible } = useScrollFade();
+
+  return (
+    <section ref={ref}>
+      <div className={\`transition-all duration-700 \${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }\`}>
+        {/* Content */}
+      </div>
+    </section>
+  );
+};
+\`\`\`
+
+- Fires once (observer disconnects after first intersection)
+- Default threshold: 0.15 (15% visible)
+- Always use \`transition-all duration-700\` with translate-y-4
+
+### Animation Rules
+
+1. **Duration limits**: UI interactions ≤ 300ms. Scroll reveals ≤ 700ms. Continuous loops ≥ 2s.
+2. **Easing**: Always \`ease-out\` for entrances. \`ease-in-out\` for loops. Never \`linear\` except shimmer.
+3. **Max per viewport**: ≤ 2 continuous (looping) animations visible at once. Stagger groups count as 1.
+4. **Scroll reveals fire once**: Use IntersectionObserver with one-shot pattern — don't re-animate on scroll back.
+5. **No parallax** — ever. No bounce. These conflict with the professional B2B tone.
+6. **Hover transitions**: Use \`transition-colors\` on links, \`transition-all\` on cards.
+7. **Respect prefers-reduced-motion**: Tailwind's \`motion-safe:\` prefix handles this.
 
 ---
 
@@ -436,6 +550,7 @@ import HeroGridBackground from "@/components/ui/hero-grid-background";
 | Level | Tailwind | Use Case |
 |---|---|---|
 | \`shadow-sm\` | — | Default cards, form containers |
+| \`shadow-md\` | — | Hover-lift cards (via .hover-lift utility) |
 | \`shadow-lg\` | — | Hero cards, elevated content |
 | \`shadow\` | — | Dropdown panels |
 | None | — | Flat cards in bento grids (use outline instead) |
@@ -457,16 +572,23 @@ Bento grid cards use \`outline outline-1 outline-black/5\` instead of shadows.
 - Use \`<Link>\` from react-router-dom for internal navigation
 - Alternate section backgrounds for visual rhythm
 - Hide decorative watermark text on mobile (\`hidden sm:block\`)
+- Use \`useScrollFade\` hook for scroll-triggered reveals
+- Use stagger utilities (\`stagger-1\` to \`stagger-6\`) for sequential card reveals
+- Use \`.hover-lift\` or \`.hover-scale\` on interactive cards
+- Keep footer nav visible on all screen sizes (2-col on mobile, 3-col on lg+)
 
 ### DON'T ❌
 - Don't use dark overlay stock photos for heroes — use split layouts with copy left
-- Don't add parallax, bounce, or stagger animations
+- Don't add parallax or bounce animations
 - Don't use Heroicons — use Lucide React exclusively
 - Don't use raw hex values in components
 - Don't use \`text-white\`, \`bg-black\`, \`text-gray-*\` — use semantic tokens
 - Don't use more than one \`<h1>\` per page
 - Don't use \`fixed\` positioning for the navbar — use \`sticky\`
 - Don't add dark mode variants (light-only for now)
+- Don't hide footer nav on mobile — it must always be visible
+- Don't use more than 2 continuous (looping) animations per viewport
+- Don't use HeadlessUI — use Radix primitives (shadcn/ui) exclusively
 
 ---
 
@@ -497,9 +619,10 @@ These sections are available as ready-made components. Compose pages by importin
 | \`BatteryHeroSection\` | \`@/components/battery-reg/HeroSection\` | Battery regulation hero |
 | \`KeyRequirements\` | \`@/components/battery-reg/KeyRequirements\` | Regulation requirements grid |
 | \`ComplianceBenefits\` | \`@/components/battery-reg/ComplianceBenefits\` | 2-column compliance benefits |
-| \`ServicesTabsSection\` | \`@/components/battery-reg/ServicesTabsSection\` | Tabbed services display |
+| \`ServicesTabsSection\` | \`@/components/battery-reg/ServicesTabsSection\` | Tabbed services (supports \`withImage\` prop) |
 | \`ConsultationCTA\` | \`@/components/battery-reg/ConsultationCTA\` | Consultation call-to-action |
 | \`BatteryPassportOverview\` | \`@/components/battery-reg/BatteryPassportOverview\` | Battery passport with stakeholders |
+| \`FAQSection\` | \`@/components/FAQSection\` | Accordion FAQ (accepts \`faqs\`, \`title\`, \`subtitle\`) |
 | \`ContactSection\` | \`@/components/contact/ContactSection\` | Inline contact form |
 | \`ContactDialog\` | \`@/components/contact/ContactDialog\` | Popup contact dialog |
 | \`ResourceBlogSection\` | \`@/components/resources/ResourceBlogSection\` | Blog with search/filter |
@@ -509,6 +632,13 @@ These sections are available as ready-made components. Compose pages by importin
 | \`Footer\` | \`@/components/Footer\` | Full footer with newsletter |
 | \`PageHeader*\` | \`@/components/ui/page-headers\` | 4 header variants |
 | \`HeroGridBackground\` | \`@/components/ui/hero-grid-background\` | Reusable SVG grid pattern |
+
+### Hooks
+
+| Hook | Import | Returns | Usage |
+|---|---|---|---|
+| \`useScrollFade\` | \`@/hooks/use-scroll-fade\` | \`{ ref, isVisible }\` | Scroll-triggered one-shot reveal |
+| \`useMobile\` | \`@/hooks/use-mobile\` | \`boolean\` | Detect mobile viewport |
 
 ---
 
@@ -536,6 +666,15 @@ const NewPage = () => (
 
 export default NewPage;
 \`\`\`
+
+### 404 Page
+
+The project includes a styled \`NotFound\` page at \`src/pages/NotFound.tsx\`:
+- Large ghosted "404" text in background
+- Glowing primary dot accent
+- Shows attempted path in \`<code>\`
+- "Back to Home" (primary button) + "Go Back" (outline) actions
+- Route: catch-all \`<Route path="*">\` in App.tsx
 
 ---
 
