@@ -45,7 +45,7 @@ export const PageHeaderCloudTrail = ({ tag, title, description }: PageHeaderProp
         }}
       />
     </div>
-    <span className="absolute -right-8 top-1/2 -translate-y-1/2 text-[12rem] font-bold leading-none text-primary/[0.04] select-none sm:text-[16rem]">
+    <span className="hidden sm:block absolute -right-8 top-1/2 -translate-y-1/2 text-[12rem] font-bold leading-none text-primary/[0.04] select-none sm:text-[16rem]">
       EU
     </span>
     <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
