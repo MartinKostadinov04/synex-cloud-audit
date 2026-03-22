@@ -53,6 +53,7 @@ import {
   batteryPassportOverviewCode,
   heroGridBgCode,
   pageHeadersCode,
+  footerCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
