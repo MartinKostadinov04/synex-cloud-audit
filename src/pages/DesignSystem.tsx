@@ -456,7 +456,6 @@ const DesignSystem = () => {
             <SectionShowcase name="Battery Passport — Overview with Stakeholders" code={batteryPassportOverviewCode}>
               <BatteryPassportOverview />
             </SectionShowcase>
-            </SectionShowcase>
             <SectionShowcase name="Hero Grid Background (reusable)" code={heroGridBgCode}>
               <div className="relative isolate overflow-hidden bg-background py-20">
                 <HeroGridBackground id="ds-grid-demo" />
