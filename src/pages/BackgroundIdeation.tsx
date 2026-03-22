@@ -11,86 +11,86 @@ type Strategy = "A" | "B" | "C" | "D" | "E" | "F";
 
 const strategies: { key: Strategy; label: string; description: string }[] = [
   { key: "A", label: "Flat White", description: "No background treatment — pure white everywhere. Clean but can feel sterile." },
-  { key: "B", label: "Alternating Bands", description: "Classic white ↔ secondary/muted zebra striping. Separates sections visually." },
+  { key: "B", label: "Alternating Bands", description: "Classic white ↔ muted zebra striping. Separates sections visually." },
   { key: "C", label: "Gradient Shifts", description: "Each section subtly shifts hue — white → warm cream → cool grey → white. Organic flow." },
   { key: "D", label: "Pattern + Gradient", description: "Dot pattern overlay with diagonal gradient. Adds texture and depth without imagery." },
   { key: "E", label: "Brand Warm Wash", description: "Subtle orange glow radiates from hero downward, fading to white. Branded but soft." },
   { key: "F", label: "Navy Bookends", description: "Dark navy hero + footer with light middle sections. Creates strong visual anchoring." },
 ];
 
-const dotStyle: React.CSSProperties = {
-  backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
-  backgroundSize: "24px 24px",
-};
-
 const BackgroundIdeation = () => {
   const [active, setActive] = useState<Strategy>("B");
 
-  // Section background inline styles by strategy
-  const sectionStyle = (index: number): React.CSSProperties => {
+  // Returns a Tailwind bg class for each section based on strategy
+  const bgClass = (index: number): string => {
     switch (active) {
       case "A":
-        return { backgroundColor: "hsl(var(--background))" };
+        return "bg-background";
       case "B":
-        return index % 2 === 0
-          ? { backgroundColor: "hsl(var(--background))" }
-          : { backgroundColor: "hsl(220 14% 93%)" };
+        return index % 2 === 0 ? "bg-background" : "bg-muted";
       case "C": {
-        const from = [
-          "hsl(var(--background))",
-          "hsl(var(--accent) / 0.25)",
-          "hsl(var(--secondary) / 0.5)",
-          "hsl(var(--muted) / 0.3)",
-          "hsl(var(--background))",
+        const classes = [
+          "bg-background",
+          "bg-gradient-to-b from-background to-accent/40",
+          "bg-gradient-to-b from-accent/40 to-muted",
+          "bg-gradient-to-b from-muted to-secondary",
+          "bg-gradient-to-b from-secondary to-background",
         ];
-        const to = [
-          "hsl(var(--accent) / 0.25)",
-          "hsl(var(--secondary) / 0.5)",
-          "hsl(var(--muted) / 0.3)",
-          "hsl(var(--background))",
-          "hsl(var(--accent) / 0.2)",
-        ];
-        return {
-          background: `linear-gradient(180deg, ${from[index % 5]}, ${to[index % 5]})`,
-        };
+        return classes[index % classes.length];
       }
       case "D":
-        return { backgroundColor: "hsl(var(--background))" };
-      case "E": {
-        const opacities = [0.07, 0.04, 0.03, 0.02, 0.01];
-        return {
-          background: `linear-gradient(180deg, hsl(var(--synex-orange) / ${opacities[index] ?? 0.01}), hsl(var(--background)))`,
-        };
-      }
+        return "bg-background";
+      case "E":
+        return "bg-background";
       case "F":
-        if (index === 0) return { backgroundColor: "hsl(var(--synex-navy-1))" };
-        return index % 2 === 0
-          ? { backgroundColor: "hsl(var(--background))" }
-          : { backgroundColor: "hsl(var(--secondary) / 0.3)" };
+        return index === 0 ? "bg-background" : index % 2 === 0 ? "bg-background" : "bg-muted";
     }
   };
 
-  // Extra overlay for strategy D
-  const renderDotOverlay = () =>
-    active === "D" ? (
-      <div className="absolute inset-0 pointer-events-none opacity-[0.3]" style={dotStyle} />
-    ) : null;
+  // Dot pattern inline style for strategy D
+  const dotOverlay = (
+    <div
+      className="absolute inset-0 pointer-events-none opacity-[0.3]"
+      style={{
+        backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
+      }}
+    />
+  );
 
-  // Navy text overrides for F hero
-  const navyTextClass =
-    "[&_h1]:!text-white [&_p]:!text-white/70 [&_span]:!text-white/80 [&_.text-foreground]:!text-white [&_.text-muted-foreground]:!text-white/60 [&_.bg-accent]:!bg-white/10 [&_.bg-card]:!bg-white/5 [&_.border-border]:!border-white/10 [&_.bg-secondary]:!bg-white/10 [&_.bg-primary\\/10]:!bg-primary/20 [&_.bg-primary\\/5]:!bg-primary/10";
+  // Warm glow overlay for strategy E
+  const warmOverlay = (index: number) => {
+    const opacities = [0.08, 0.05, 0.03, 0.02, 0.01];
+    return (
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `linear-gradient(180deg, hsl(var(--synex-orange) / ${opacities[index] ?? 0.01}), transparent)`,
+        }}
+      />
+    );
+  };
+
+  // Wrapper that adds strategy-specific overlays
+  const Wrap = ({ children, index }: { children: React.ReactNode; index: number }) => {
+    if (active === "D") {
+      return <div className="relative overflow-hidden">{dotOverlay}{children}</div>;
+    }
+    if (active === "E") {
+      return <div className="relative overflow-hidden">{warmOverlay(index)}{children}</div>;
+    }
+    return <>{children}</>;
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      {/* Sticky switcher bar */}
+      {/* Sticky switcher */}
       <div className="sticky top-16 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="container py-3">
           <div className="flex items-center gap-3 overflow-x-auto pb-1">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0">
-              BG:
-            </span>
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0">BG:</span>
             {strategies.map((s) => (
               <button
                 key={s.key}
@@ -111,77 +111,29 @@ const BackgroundIdeation = () => {
         </div>
       </div>
 
-      {/* Force child section backgrounds transparent so wrapper bg shows through.
-           Target all descendants that might have bg classes, not just direct children. */}
-      <style>{`
-        .bg-ideation-wrap * {
-          background-color: transparent !important;
-        }
-        /* Restore backgrounds on cards, buttons, icons, badges, inputs, progress bars */
-        .bg-ideation-wrap .bg-card,
-        .bg-ideation-wrap .bg-primary,
-        .bg-ideation-wrap .bg-primary\\/10,
-        .bg-ideation-wrap .bg-secondary,
-        .bg-ideation-wrap [class*="bg-gradient"],
-        .bg-ideation-wrap .rounded-xl.border,
-        .bg-ideation-wrap .rounded-2xl.border,
-        .bg-ideation-wrap .rounded-lg.border,
-        .bg-ideation-wrap button,
-        .bg-ideation-wrap input,
-        .bg-ideation-wrap textarea,
-        .bg-ideation-wrap .bg-primary\\/10,
-        .bg-ideation-wrap .h-1\\.5,
-        .bg-ideation-wrap [class*="rounded-full"][class*="bg-"] {
-          background-color: revert !important;
-        }
-      `}</style>
-
       <main className="flex-1">
-        {/* 0: Hero */}
-        <div
-          className={`relative overflow-hidden bg-ideation-wrap ${active === "F" ? navyTextClass : ""}`}
-          style={sectionStyle(0)}
-        >
-          {renderDotOverlay()}
-          <HeroSection />
-        </div>
+        <Wrap index={0}>
+          <HeroSection className={bgClass(0)} />
+        </Wrap>
 
-        {/* 1: Logo Cloud */}
-        <div className="relative overflow-hidden bg-ideation-wrap" style={sectionStyle(1)}>
-          {renderDotOverlay()}
-          <LogoCloudSection />
-        </div>
+        <Wrap index={1}>
+          <LogoCloudSection className={bgClass(1)} />
+        </Wrap>
 
-        {/* 2: Features */}
-        <div className="relative overflow-hidden bg-ideation-wrap" style={sectionStyle(2)}>
-          {renderDotOverlay()}
-          <FeaturesSection />
-        </div>
+        <Wrap index={2}>
+          <FeaturesSection className={bgClass(2)} />
+        </Wrap>
 
-        {/* 3: Bento */}
-        <div className="relative overflow-hidden bg-ideation-wrap" style={sectionStyle(3)}>
-          {renderDotOverlay()}
-          <BentoSection />
-        </div>
+        <Wrap index={3}>
+          <BentoSection className={bgClass(3)} />
+        </Wrap>
 
-        {/* 4: Contact */}
-        <div className="relative overflow-hidden bg-ideation-wrap" style={sectionStyle(4)}>
-          {renderDotOverlay()}
-          <ContactSection />
-        </div>
+        <Wrap index={4}>
+          <ContactSection className={bgClass(4)} />
+        </Wrap>
       </main>
 
-      {/* Footer */}
-      {active === "F" ? (
-        <div
-          className={navyTextClass}
-          style={{ backgroundColor: "hsl(var(--synex-navy-1))" }}
-        >
-          <Footer />
-        </div>
-      ) : (
-        <Footer />
-      )}
+      <Footer />
     </div>
   );
 };
