@@ -1231,112 +1231,110 @@ const ResourceBlogSection = () => {
 export default ResourceBlogSection;
 `;
 
-export const resourceDownloadsCode = `import { FileText, Download, Eye } from "lucide-react";
+export const resourceDownloadsCode = `import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 const downloads = [
   {
     id: 1,
-    title: "EU Battery Regulation Summary",
-    description: "A two-page executive summary of Regulation 2023/1542 obligations and timelines.",
-    type: "PDF",
-    size: "1.2 MB",
-    previewUrl: null,
+    coverTitle: "Guide to DPP",
+    subtitle: "Digital Product Passports in ESPR",
+    date: "April 2025",
+    title: "Digital Product Passports in ESPR",
+    description:
+      "This article provides a comprehensive overview of EU Digital Product Passports, their technical framework, compliance requirements, strategic advantages, and implementation options.",
     downloadUrl: "#",
   },
   {
     id: 2,
-    title: "Battery Passport Data Checklist",
-    description: "Complete field-by-field checklist for Battery Passport data requirements.",
-    type: "XLSX",
-    size: "340 KB",
-    previewUrl: null,
+    coverTitle: "Guide to DPP",
+    subtitle: "Implementation Strategies",
+    date: "April 2025",
+    title: "DPP Implementation Strategies",
+    description:
+      "Selecting the optimal implementation strategy for DPP compliance is essential for companies to efficiently balance regulatory obligations, operational costs, and yield benefit from strategic business objectives.",
     downloadUrl: "#",
   },
   {
     id: 3,
-    title: "Carbon Footprint Calculation Template",
-    description: "Pre-built template aligned with the EU's approved CFD methodology for battery producers.",
-    type: "XLSX",
-    size: "520 KB",
-    previewUrl: null,
+    coverTitle: "Guide to EU ESPR",
+    subtitle: "European Ecodesign for Sustainable Products Regulation",
+    date: "April 2025",
+    title: "Guide to EU ESPR",
+    description:
+      "After reviewing this article, you will know the current state of ESPR's key goals, requirements, and compliance mechanisms. By understanding the regulation's core principles, responsible economic operators can take proactive strategies for upcoming compliance.",
     downloadUrl: "#",
   },
   {
     id: 4,
-    title: "ESPR Compliance Roadmap",
-    description: "Visual timeline of ESPR milestones, delegated acts, and product category deadlines.",
-    type: "PDF",
-    size: "2.8 MB",
-    previewUrl: null,
+    coverTitle: "Battery Regulation",
+    subtitle: "EU Battery Passport Checklist",
+    date: "March 2025",
+    title: "EU Battery Passport Checklist",
+    description:
+      "A comprehensive checklist of every data point required for EU Battery Passports — covering identification, performance, materials, and sustainability metrics for full compliance.",
     downloadUrl: "#",
   },
 ];
-
-const typeColors: Record<string, string> = {
-  PDF: "bg-destructive/10 text-destructive",
-  XLSX: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-  DOCX: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-};
 
 const ResourceDownloadsSection = () => {
   return (
     <section className="py-24 sm:py-32 bg-secondary/30">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
-        <div className="mx-auto max-w-2xl lg:text-center">
-          <p className="text-base font-semibold text-primary">Downloads</p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Templates & Documents
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Download our guides
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            Ready-to-use resources to accelerate your compliance journey.
+          <p className="mt-4 text-lg text-muted-foreground">
+            Gain a comprehensive understanding of EU regulations:
           </p>
         </div>
 
-        {/* Download cards grid */}
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        {/* Cards grid */}
+        <div className="mx-auto mt-16 grid max-w-sm grid-cols-1 gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3">
           {downloads.map((item) => (
             <div
               key={item.id}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-md"
+              className="group flex flex-col overflow-hidden rounded-xl bg-card border border-border shadow-sm hover:shadow-lg transition-shadow"
             >
-              {/* Preview area */}
-              <div className="flex h-40 items-center justify-center bg-muted/50">
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                  <FileText className="h-10 w-10 stroke-[1.5]" />
-                  <Badge
-                    variant="secondary"
-                    className={typeColors[item.type] ?? "bg-secondary text-secondary-foreground"}
-                  >
-                    {item.type}
-                  </Badge>
+              {/* Document cover preview */}
+              <div className="relative mx-6 mt-6 overflow-hidden rounded-lg bg-muted/60">
+                <div className="flex aspect-[3/4] max-h-72 items-end">
+                  {/* Cover mock */}
+                  <div className="relative ml-4 mb-4 flex w-3/5 flex-col justify-between rounded-md bg-foreground p-5 shadow-xl" style={{ aspectRatio: "3/4" }}>
+                    {/* Brand mark */}
+                    <p className="text-sm font-medium text-primary-foreground/80 tracking-wide">
+                      synex
+                    </p>
+                    {/* Cover title area */}
+                    <div>
+                      <div className="mb-2 h-px w-10 bg-primary" />
+                      <h3 className="text-lg font-bold leading-tight text-primary-foreground">
+                        {item.coverTitle}
+                      </h3>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-5">
-                <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+              {/* Text content */}
+              <div className="flex flex-1 flex-col p-6 pt-5">
+                <p className="text-xs font-medium uppercase tracking-wider text-primary">
+                  {item.date}
+                </p>
+                <h3 className="mt-2 text-lg font-bold text-foreground">
                   {item.title}
                 </h3>
-                <p className="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed line-clamp-4">
                   {item.description}
                 </p>
 
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">{item.size}</span>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" className="gap-1.5 text-xs">
-                      <Eye className="h-3.5 w-3.5" />
-                      Preview
-                    </Button>
-                    <Button size="sm" className="gap-1.5 text-xs">
-                      <Download className="h-3.5 w-3.5" />
-                      Download
-                    </Button>
-                  </div>
-                </div>
+                {/* Download button */}
+                <Button className="mt-6 w-full gap-2" size="lg">
+                  <Download className="h-4 w-4" />
+                  Download Document
+                </Button>
               </div>
             </div>
           ))}
