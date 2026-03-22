@@ -68,18 +68,16 @@ const HeaderC2 = () => (
 
 const HeaderC3 = () => (
   <div className="relative overflow-hidden border-b border-border bg-secondary/50 py-16 sm:py-20">
-    {/* Grid pattern */}
-    <svg
+    {/* Grid pattern via CSS */}
+    <div
       aria-hidden="true"
-      className="absolute inset-0 -z-10 h-full w-full stroke-border/60 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-    >
-      <defs>
-        <pattern id="header-grid" x="50%" y={-1} width={80} height={80} patternUnits="userSpaceOnUse">
-          <path d="M.5 80V.5H80" fill="none" />
-        </pattern>
-      </defs>
-      <rect fill="url(#header-grid)" width="100%" height="100%" strokeWidth={0} />
-    </svg>
+      className="absolute inset-0 -z-10 opacity-[0.4]"
+      style={{
+        backgroundImage:
+          "linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px)",
+        backgroundSize: "80px 80px",
+      }}
+    />
     <span className="absolute -right-8 top-1/2 -translate-y-1/2 text-[12rem] font-bold leading-none text-primary/[0.04] select-none sm:text-[16rem]">
       EU
     </span>
