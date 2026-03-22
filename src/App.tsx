@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import BatteryReg from "./pages/BatteryReg.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import DesignSystem from "./pages/DesignSystem.tsx";
+import ExampleHeaders from "./pages/ExampleHeaders.tsx";
 
 const queryClient = new QueryClient();
 
