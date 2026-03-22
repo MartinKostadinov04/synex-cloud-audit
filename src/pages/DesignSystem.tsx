@@ -50,6 +50,7 @@ import {
   demosSectionCode,
   practicalGuideCode,
   batteryPassportOverviewCode,
+  heroGridBgCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
