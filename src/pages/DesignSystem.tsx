@@ -19,6 +19,7 @@ import KeyRequirements from "@/components/battery-reg/KeyRequirements";
 import ComplianceBenefits from "@/components/battery-reg/ComplianceBenefits";
 import ServicesTabsSection from "@/components/battery-reg/ServicesTabsSection";
 import ConsultationCTA from "@/components/battery-reg/ConsultationCTA";
+import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import {
   cssTokensCode,
   heroCode,
