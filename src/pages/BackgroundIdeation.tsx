@@ -6,8 +6,9 @@ import FeaturesSection from "@/components/landing/FeaturesSection";
 import BentoSection from "@/components/landing/BentoSection";
 import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ContactSection from "@/components/contact/ContactSection";
+import HeroGridBackground from "@/components/ui/hero-grid-background";
 
-type Strategy = "A" | "B" | "C" | "D" | "E" | "F";
+type Strategy = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 
 const strategies: { key: Strategy; label: string; description: string }[] = [
   { key: "A", label: "Flat White", description: "No background treatment — pure white everywhere. Clean but can feel sterile." },
@@ -16,6 +17,7 @@ const strategies: { key: Strategy; label: string; description: string }[] = [
   { key: "D", label: "Pattern + Gradient", description: "Dot pattern overlay with diagonal gradient. Adds texture and depth without imagery." },
   { key: "E", label: "Brand Warm Wash", description: "Subtle orange glow radiates from hero downward, fading to white. Branded but soft." },
   { key: "F", label: "Navy Bookends", description: "Dark navy hero + footer with light middle sections. Creates strong visual anchoring." },
+  { key: "G", label: "Grid Pattern", description: "SVG grid backdrop on alternating sections. Adds structure and technical feel without heaviness." },
 ];
 
 const BackgroundIdeation = () => {
@@ -44,6 +46,8 @@ const BackgroundIdeation = () => {
         return "bg-background";
       case "F":
         return index === 0 ? "bg-background" : index % 2 === 0 ? "bg-background" : "bg-muted";
+      case "G":
+        return index % 2 === 0 ? "bg-background" : "bg-muted";
     }
   };
 
@@ -78,6 +82,15 @@ const BackgroundIdeation = () => {
     }
     if (active === "E") {
       return <div className="relative overflow-hidden">{warmOverlay(index)}{children}</div>;
+    }
+    if (active === "G") {
+      // Grid on every other section (odd indices get the grid)
+      return (
+        <div className="relative isolate overflow-hidden">
+          {index % 2 === 0 && <HeroGridBackground id={`grid-bg-${index}`} />}
+          {children}
+        </div>
+      );
     }
     return <>{children}</>;
   };
