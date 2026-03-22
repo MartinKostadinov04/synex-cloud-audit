@@ -22,6 +22,7 @@ import ConsultationCTA from "@/components/battery-reg/ConsultationCTA";
 import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ResourceBlogSection from "@/components/resources/ResourceBlogSection";
 import ResourceDownloadsSection from "@/components/resources/ResourceDownloadsSection";
+import ConsultingNavSection from "@/components/consulting/ConsultingNavSection";
 import {
   cssTokensCode,
   heroCode,
