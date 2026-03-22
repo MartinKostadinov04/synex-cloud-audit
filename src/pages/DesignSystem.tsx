@@ -456,6 +456,17 @@ const DesignSystem = () => {
             <SectionShowcase name="Battery Passport — Overview with Stakeholders" code={batteryPassportOverviewCode}>
               <BatteryPassportOverview />
             </SectionShowcase>
+            </SectionShowcase>
+            <SectionShowcase name="Hero Grid Background (reusable)" code={heroGridBgCode}>
+              <div className="relative isolate overflow-hidden bg-background py-20">
+                <HeroGridBackground id="ds-grid-demo" />
+                <div className="relative mx-auto max-w-7xl px-6 text-center">
+                  <p className="text-sm font-semibold text-primary">Reusable background</p>
+                  <h3 className="mt-2 text-2xl font-bold text-foreground">Drop this behind any section</h3>
+                  <p className="mt-2 text-muted-foreground">SVG grid + orange gradient blob from the landing hero.</p>
+                </div>
+              </div>
+            </SectionShowcase>
           </div>
         </Section>
       </main>
