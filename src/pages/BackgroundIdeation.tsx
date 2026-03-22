@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, cloneElement, isValidElement, ReactElement, ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/landing/HeroSection";
@@ -18,119 +18,67 @@ const strategies: { key: Strategy; label: string; description: string }[] = [
   { key: "F", label: "Navy Bookends", description: "Dark navy hero + footer with light middle sections. Creates strong visual anchoring." },
 ];
 
-/**
- * Wraps a section component with a background treatment.
- * Uses a CSS trick: the wrapper sets the bg, and we force any direct bg-background
- * on the child to become transparent so the wrapper shows through.
- */
-const BgWrap = ({
-  children,
-  className = "",
-  style,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}) => (
-  <div
-    className={`relative ${className}`}
-    style={style}
-  >
-    {/* Force child section bg-background to be transparent */}
-    <div className="[&_>section]:!bg-transparent [&_>div]:!bg-transparent [&_.bg-background]:!bg-transparent">
-      {children}
-    </div>
-  </div>
-);
+const dotStyle: React.CSSProperties = {
+  backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
+  backgroundSize: "24px 24px",
+};
 
 const BackgroundIdeation = () => {
   const [active, setActive] = useState<Strategy>("B");
 
-  // Background classes per section index
-  const getBg = (index: number) => {
+  // Section background inline styles by strategy
+  const sectionStyle = (index: number): React.CSSProperties => {
     switch (active) {
       case "A":
-        return "bg-background";
+        return { backgroundColor: "hsl(var(--background))" };
       case "B":
-        return index % 2 === 0 ? "bg-background" : "bg-secondary/50";
+        return index % 2 === 0
+          ? { backgroundColor: "hsl(var(--background))" }
+          : { backgroundColor: "hsl(var(--secondary) / 0.5)" };
       case "C": {
-        const shifts = [
-          "bg-background",
-          "bg-gradient-to-b from-background to-accent/30",
-          "bg-gradient-to-b from-accent/30 to-secondary/60",
-          "bg-gradient-to-b from-secondary/60 to-muted/40",
-          "bg-gradient-to-b from-muted/40 to-background",
+        const from = [
+          "hsl(var(--background))",
+          "hsl(var(--accent) / 0.25)",
+          "hsl(var(--secondary) / 0.5)",
+          "hsl(var(--muted) / 0.3)",
+          "hsl(var(--background))",
         ];
-        return shifts[index % shifts.length];
+        const to = [
+          "hsl(var(--accent) / 0.25)",
+          "hsl(var(--secondary) / 0.5)",
+          "hsl(var(--muted) / 0.3)",
+          "hsl(var(--background))",
+          "hsl(var(--accent) / 0.2)",
+        ];
+        return {
+          background: `linear-gradient(180deg, ${from[index % 5]}, ${to[index % 5]})`,
+        };
       }
       case "D":
-        return "";
-      case "E":
-        return "";
+        return { backgroundColor: "hsl(var(--background))" };
+      case "E": {
+        const opacities = [0.07, 0.04, 0.03, 0.02, 0.01];
+        return {
+          background: `linear-gradient(180deg, hsl(var(--synex-orange) / ${opacities[index] ?? 0.01}), hsl(var(--background)))`,
+        };
+      }
       case "F":
-        return index % 2 === 0 ? "bg-background" : "bg-secondary/30";
+        if (index === 0) return { backgroundColor: "hsl(var(--synex-navy-1))" };
+        return index % 2 === 0
+          ? { backgroundColor: "hsl(var(--background))" }
+          : { backgroundColor: "hsl(var(--secondary) / 0.3)" };
     }
   };
 
-  // Dot pattern style
-  const dotStyle: React.CSSProperties = {
-    backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
-    backgroundSize: "24px 24px",
-  };
+  // Extra overlay for strategy D
+  const renderDotOverlay = () =>
+    active === "D" ? (
+      <div className="absolute inset-0 pointer-events-none opacity-[0.3]" style={dotStyle} />
+    ) : null;
 
-  const renderSection = (component: React.ReactNode, index: number) => {
-    if (active === "D") {
-      const gradients = [
-        "from-muted/50 via-background to-accent/20",
-        "from-accent/20 to-secondary/40",
-        "from-secondary/40 via-background to-primary/5",
-        "from-primary/5 via-accent/15 to-secondary/50",
-        "from-muted/40 via-background to-primary/5",
-      ];
-      return (
-        <BgWrap className="bg-background">
-          <div className="absolute inset-0 -z-10 opacity-[0.3]" style={dotStyle} />
-          <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${gradients[index % gradients.length]}`} />
-          {component}
-        </BgWrap>
-      );
-    }
-
-    if (active === "E") {
-      const opacities = ["0.07", "0.04", "0.03", "0.02", "0.01"];
-      return (
-        <BgWrap className="bg-background">
-          <div
-            className="absolute inset-0 -z-10"
-            style={{
-              background: `linear-gradient(180deg, hsl(var(--synex-orange) / ${opacities[index] ?? "0.01"}) 0%, transparent 100%)`,
-            }}
-          />
-          {component}
-        </BgWrap>
-      );
-    }
-
-    if (active === "F" && index === 0) {
-      return (
-        <div className="bg-[hsl(var(--synex-navy-1))]">
-          <div className="[&_section]:!bg-transparent [&_>div]:!bg-transparent [&_.bg-background]:!bg-transparent [&_h1]:!text-white [&_.text-foreground]:!text-white [&_.text-muted-foreground]:!text-white/70 [&_.bg-accent]:!bg-white/10 [&_.bg-card]:!bg-white/5 [&_.border-border]:!border-white/10 [&_.bg-secondary]:!bg-white/10 [&_.bg-primary\\/10]:!bg-primary/20 [&_.bg-primary\\/5]:!bg-primary/10">
-            {component}
-          </div>
-        </div>
-      );
-    }
-
-    return <BgWrap className={getBg(index)}>{component}</BgWrap>;
-  };
-
-  const sections = [
-    <HeroSection key="hero" />,
-    <LogoCloudSection key="logos" />,
-    <FeaturesSection key="features" />,
-    <BentoSection key="bento" />,
-    <ContactSection key="contact" />,
-  ];
+  // Navy text overrides for F hero
+  const navyTextClass =
+    "[&_h1]:!text-white [&_p]:!text-white/70 [&_span]:!text-white/80 [&_.text-foreground]:!text-white [&_.text-muted-foreground]:!text-white/60 [&_.bg-accent]:!bg-white/10 [&_.bg-card]:!bg-white/5 [&_.border-border]:!border-white/10 [&_.bg-secondary]:!bg-white/10 [&_.bg-primary\\/10]:!bg-primary/20 [&_.bg-primary\\/5]:!bg-primary/10";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -164,14 +112,46 @@ const BackgroundIdeation = () => {
       </div>
 
       <main className="flex-1">
-        {sections.map((section, i) => (
-          <div key={i}>{renderSection(section, i)}</div>
-        ))}
+        {/* 0: Hero */}
+        <div
+          className={`relative overflow-hidden ${active === "F" ? navyTextClass : ""}`}
+          style={sectionStyle(0)}
+        >
+          {renderDotOverlay()}
+          <HeroSection />
+        </div>
+
+        {/* 1: Logo Cloud */}
+        <div className="relative overflow-hidden" style={sectionStyle(1)}>
+          {renderDotOverlay()}
+          <LogoCloudSection />
+        </div>
+
+        {/* 2: Features — already has its own gradient bg, override it for non-D modes */}
+        <div className="relative overflow-hidden" style={sectionStyle(2)}>
+          {renderDotOverlay()}
+          <FeaturesSection />
+        </div>
+
+        {/* 3: Bento */}
+        <div className="relative overflow-hidden" style={sectionStyle(3)}>
+          {renderDotOverlay()}
+          <BentoSection />
+        </div>
+
+        {/* 4: Contact */}
+        <div className="relative overflow-hidden" style={sectionStyle(4)}>
+          {renderDotOverlay()}
+          <ContactSection />
+        </div>
       </main>
 
-      {/* Footer — navy for F */}
+      {/* Footer */}
       {active === "F" ? (
-        <div className="bg-[hsl(var(--synex-navy-1))] [&_footer]:!bg-transparent [&_footer]:!border-white/10 [&_.text-foreground]:!text-white [&_.text-muted-foreground]:!text-white/60 [&_.border-border]:!border-white/10 [&_a]:!text-white/60 hover:[&_a]:!text-white [&_input]:!bg-white/5 [&_input]:!border-white/10 [&_input]:!text-white">
+        <div
+          className={navyTextClass}
+          style={{ backgroundColor: "hsl(var(--synex-navy-1))" }}
+        >
           <Footer />
         </div>
       ) : (
