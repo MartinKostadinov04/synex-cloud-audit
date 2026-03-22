@@ -409,6 +409,9 @@ const DesignSystem = () => {
             <SectionShowcase name="Battery Reg — Consultation CTA" code={consultationCtaCode}>
               <ConsultationCTA />
             </SectionShowcase>
+            <SectionShowcase name="Logo Cloud" code={logoCloudCode}>
+              <LogoCloudSection />
+            </SectionShowcase>
           </div>
         </Section>
       </main>
