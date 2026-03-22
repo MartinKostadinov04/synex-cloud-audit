@@ -19,6 +19,7 @@ import KeyRequirements from "@/components/battery-reg/KeyRequirements";
 import ComplianceBenefits from "@/components/battery-reg/ComplianceBenefits";
 import ServicesTabsSection from "@/components/battery-reg/ServicesTabsSection";
 import ConsultationCTA from "@/components/battery-reg/ConsultationCTA";
+import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import {
   cssTokensCode,
   heroCode,
@@ -31,6 +32,7 @@ import {
   complianceBenefitsCode,
   servicesTabsCode,
   consultationCtaCode,
+  logoCloudCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
@@ -406,6 +408,9 @@ const DesignSystem = () => {
 
             <SectionShowcase name="Battery Reg — Consultation CTA" code={consultationCtaCode}>
               <ConsultationCTA />
+            </SectionShowcase>
+            <SectionShowcase name="Logo Cloud" code={logoCloudCode}>
+              <LogoCloudSection />
             </SectionShowcase>
           </div>
         </Section>
