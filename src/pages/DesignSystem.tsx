@@ -23,6 +23,8 @@ import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ResourceBlogSection from "@/components/resources/ResourceBlogSection";
 import ResourceDownloadsSection from "@/components/resources/ResourceDownloadsSection";
 import ConsultingNavSection from "@/components/consulting/ConsultingNavSection";
+import ContactSection from "@/components/contact/ContactSection";
+import ContactDialog from "@/components/contact/ContactDialog";
 import {
   cssTokensCode,
   heroCode,
