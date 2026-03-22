@@ -1,14 +1,12 @@
-/**
- * HeroGridBackground
- * Reusable SVG grid + gradient blob backdrop used in the landing hero
- * and secondary page headers. Wrap any section with this as a sibling.
- *
- * Usage:
- *   <div className="relative isolate overflow-hidden">
- *     <HeroGridBackground />
- *     {/* your content */}
- *   </div>
- */
+// HeroGridBackground
+// Reusable SVG grid + gradient blob backdrop used in the landing hero
+// and secondary page headers.
+//
+// Usage:
+//   <div className="relative isolate overflow-hidden">
+//     <HeroGridBackground />
+//     {/* your content */}
+//   </div>
 
 const HeroGridBackground = ({ id = "hero-grid-bg" }: { id?: string }) => (
   <>
