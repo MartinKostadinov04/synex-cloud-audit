@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound.tsx";
 import DesignSystem from "./pages/DesignSystem.tsx";
 import ExampleHeaders from "./pages/ExampleHeaders.tsx";
 import BackgroundIdeation from "./pages/BackgroundIdeation.tsx";
+import AnimationsDemo from "./pages/AnimationsDemo.tsx";
 
 const queryClient = new QueryClient();
 
