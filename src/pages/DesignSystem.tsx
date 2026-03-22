@@ -27,6 +27,7 @@ import ContactSection from "@/components/contact/ContactSection";
 import ContactDialog from "@/components/contact/ContactDialog";
 import DemosSection from "@/components/landing/DemosSection";
 import PracticalGuideSection from "@/components/landing/PracticalGuideSection";
+import BatteryPassportOverview from "@/components/battery-reg/BatteryPassportOverview";
 import {
   cssTokensCode,
   heroCode,
@@ -47,6 +48,7 @@ import {
   contactDialogCode,
   demosSectionCode,
   practicalGuideCode,
+  batteryPassportOverviewCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
@@ -448,6 +450,9 @@ const DesignSystem = () => {
             </SectionShowcase>
             <SectionShowcase name="Practical Guide — Numbered Steps" code={practicalGuideCode}>
               <PracticalGuideSection />
+            </SectionShowcase>
+            <SectionShowcase name="Battery Passport — Overview with Stakeholders" code={batteryPassportOverviewCode}>
+              <BatteryPassportOverview />
             </SectionShowcase>
           </div>
         </Section>
