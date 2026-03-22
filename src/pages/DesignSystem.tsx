@@ -559,6 +559,13 @@ const DesignSystem = () => {
             </SectionShowcase>
           </div>
         </Section>
+
+        <Separator />
+
+        {/* ─── AI DESIGN SYSTEM PROMPT ─── */}
+        <Section id="ai-prompt" title="AI Design System Prompt" description="Copy this prompt into any AI agent's context window to build pages that follow this design system exactly.">
+          <AiPromptWindow />
+        </Section>
       </main>
 
       <Footer />
