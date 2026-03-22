@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Roboto", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +60,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Brand tokens
+        "synex-orange": "hsl(var(--synex-orange))",
+        "synex-orange-light": "hsl(var(--synex-orange-light))",
+        "synex-grey": "hsl(var(--synex-grey))",
+        "synex-grey-70": "hsl(var(--synex-grey-70))",
+        "synex-grey-60": "hsl(var(--synex-grey-60))",
+        "synex-navy-1": "hsl(var(--synex-navy-1))",
+        "synex-navy-2": "hsl(var(--synex-navy-2))",
       },
       borderRadius: {
         lg: "var(--radius)",
