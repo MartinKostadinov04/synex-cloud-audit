@@ -71,7 +71,7 @@ const HeaderC3 = () => (
     {/* Grid pattern via CSS */}
     <div
       aria-hidden="true"
-      className="absolute inset-0 -z-10 opacity-[0.4]"
+      className="absolute inset-0 z-0 opacity-[0.5]"
       style={{
         backgroundImage:
           "linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px)",
