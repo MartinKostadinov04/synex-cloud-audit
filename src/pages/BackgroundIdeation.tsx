@@ -83,6 +83,15 @@ const BackgroundIdeation = () => {
     if (active === "E") {
       return <div className="relative overflow-hidden">{warmOverlay(index)}{children}</div>;
     }
+    if (active === "G") {
+      // Grid on every other section (odd indices get the grid)
+      return (
+        <div className="relative isolate overflow-hidden">
+          {index % 2 === 0 && <HeroGridBackground id={`grid-bg-${index}`} />}
+          {children}
+        </div>
+      );
+    }
     return <>{children}</>;
   };
 
