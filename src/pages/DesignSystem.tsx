@@ -441,6 +441,9 @@ const DesignSystem = () => {
                 <ContactDialog />
               </div>
             </SectionShowcase>
+            <SectionShowcase name="Demos — Phone Mockup Cards" code={demosSectionCode}>
+              <DemosSection />
+            </SectionShowcase>
           </div>
         </Section>
       </main>
