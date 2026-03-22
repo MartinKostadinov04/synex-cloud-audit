@@ -1,0 +1,583 @@
+// Full source code strings for each section component.
+// Used by the design system page's SectionShowcase "Code" tabs.
+
+export const cssTokensCode = `@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SynexCloud Design System
+   All colors are HSL. Brand source: Synex PDF guidelines.
+   Primary Orange: #F2641F → 18 89% 54%
+   Primary Grey: #474747 → 0 0% 28%
+   Secondary Orange: #F8AC86 → 18 89% 75%
+   Secondary Grey-70: #B2B2B2 → 0 0% 70%
+   Secondary Grey-60: #999999 → 0 0% 60%
+   Text-Grey-20: #333333 → 0 0% 20%
+   Text-Grey-30: #4C4C4C → 0 0% 30%
+   Web-Navy-1: #1F2937 → 215 28% 17%
+   Web-Navy-2: #4B5563 → 215 14% 34%
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 28% 17%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 17%;
+
+    --primary: 18 89% 54%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 215 28% 17%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 215 14% 34%;
+
+    --accent: 18 89% 96%;
+    --accent-foreground: 18 89% 34%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 18 89% 54%;
+
+    --radius: 0.5rem;
+
+    /* Brand tokens */
+    --synex-orange: 18 89% 54%;
+    --synex-grey: 0 0% 28%;
+    --synex-orange-light: 18 89% 75%;
+    --synex-grey-70: 0 0% 70%;
+    --synex-grey-60: 0 0% 60%;
+    --synex-text-grey-20: 0 0% 20%;
+    --synex-text-grey-30: 0 0% 30%;
+    --synex-navy-1: 215 28% 17%;
+    --synex-navy-2: 215 14% 34%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}`;
+
+export const heroCode = `import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Shield } from "lucide-react";
+
+const HeroSection = () => (
+  <div className="relative isolate overflow-hidden bg-background">
+    {/* Grid background */}
+    <svg
+      aria-hidden="true"
+      className="absolute inset-0 -z-10 size-full stroke-border [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+    >
+      <defs>
+        <pattern id="hero-grid" x="50%" y={-1} width={200} height={200} patternUnits="userSpaceOnUse">
+          <path d="M.5 200V.5H200" fill="none" />
+        </pattern>
+      </defs>
+      <svg x="50%" y={-1} className="overflow-visible fill-secondary/40">
+        <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" />
+      </svg>
+      <rect fill="url(#hero-grid)" width="100%" height="100%" strokeWidth={0} />
+    </svg>
+
+    {/* Gradient blob */}
+    <div
+      aria-hidden="true"
+      className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+    >
+      <div
+        className="aspect-[1108/632] w-[69.25rem] opacity-20"
+        style={{
+          background: "linear-gradient(to top right, hsl(var(--synex-orange-light)), hsl(var(--synex-orange)))",
+          clipPath:
+            "polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)",
+        }}
+      />
+    </div>
+
+    <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40">
+      {/* Left: Copy */}
+      <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:shrink-0 lg:pt-8">
+        <div className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
+          <Shield className="h-4 w-4" />
+          EU Compliance
+        </div>
+
+        <h1 className="mt-10 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-[3.25rem] leading-[1.15]">
+          Navigate EU Regulations with Confidence
+        </h1>
+
+        <p className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-lg text-pretty">
+          The EU Battery Regulation and ESPR introduce sweeping requirements for manufacturers.
+          We combine expert consulting with purpose-built software to guide you from complexity
+          to compliance — step by step.
+        </p>
+
+        <div className="mt-10 flex items-center gap-x-4">
+          <Button size="lg" className="gap-2">
+            Get Started <ArrowRight className="h-4 w-4" />
+          </Button>
+          <Button size="lg" variant="outline">
+            Learn More
+          </Button>
+        </div>
+      </div>
+
+      {/* Right: Compliance dashboard visual */}
+      <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+        <div className="max-w-3xl flex-none sm:max-w-md lg:max-w-sm">
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-2xl bg-primary/5 blur-2xl" />
+            <div className="relative rounded-2xl border border-border bg-card p-8 shadow-lg space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Shield className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground text-sm">Compliance Status</p>
+                  <p className="text-xs text-muted-foreground">EU Battery Regulation 2023/1542</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { label: "Battery Passport", progress: 85 },
+                  { label: "Due Diligence", progress: 72 },
+                  { label: "Carbon Footprint", progress: 60 },
+                  { label: "Recycled Content", progress: 45 },
+                ].map((item) => (
+                  <div key={item.label} className="space-y-1.5">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">{item.label}</span>
+                      <span className="font-medium text-foreground">{item.progress}%</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-primary transition-all duration-700"
+                        style={{ width: \`\${item.progress}%\` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+export default HeroSection;`;
+
+export const featuresCode = `import { ShieldAlert, Timer, CircleDollarSign, Route, ArrowRight } from "lucide-react";
+
+const benefits = [
+  {
+    icon: ShieldAlert,
+    title: "Reduce Compliance Risks",
+    description:
+      "Stay ahead of regulations and avoid penalties with expert support that ensures compliance with evolving legal and industry requirements.",
+  },
+  {
+    icon: Timer,
+    title: "Accelerate Time to Market",
+    description:
+      "Streamline EU market entry or continuity by navigating with expert support — reducing delays and enabling confident, compliant operations.",
+  },
+  {
+    icon: CircleDollarSign,
+    title: "Avoid Hidden Costs",
+    description:
+      "Prevent costly reworks and missed opportunities by addressing compliance early, turning complex requirements into operational clarity and efficiency.",
+  },
+  {
+    icon: Route,
+    title: "Tailored Compliance Roadmaps",
+    description:
+      "Get customized, step-by-step regulatory plans aligned with your business needs and goals — focused, actionable, and growth-oriented.",
+  },
+];
+
+const services = [
+  {
+    title: "Battery Regulation Consulting",
+    description:
+      "Navigate complex EU battery rules with expert guidance on compliance strategy, data requirements, labeling, and digital battery passport implementation.",
+    href: "/batteryreg",
+  },
+  {
+    title: "ESPR Consulting",
+    description:
+      "Get tailored support to align your products with ESPR, covering design requirements, DPP readiness, data strategy, and supply chain coordination.",
+    href: "/espr",
+  },
+];
+
+const FeaturesSection = () => (
+  <section className="relative py-24 sm:py-32 overflow-hidden">
+    {/* Gradient background */}
+    <div className="absolute inset-0 -z-10 bg-gradient-to-br from-muted via-muted/40 to-primary/10" />
+    {/* Subtle dot pattern */}
+    <div
+      className="absolute inset-0 -z-10 opacity-[0.4]"
+      style={{
+        backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
+      }}
+    />
+    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      {/* Header */}
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-pretty">
+          <span className="text-primary">Forget</span> about compliance complexity
+        </h2>
+        <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+          Regulation compliance is a project that needs its research, planning and implementation.
+          Avoid risk and streamline these processes so you can worry less and sell more.
+        </p>
+      </div>
+
+      {/* 4 Benefit Cards */}
+      <div className="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {benefits.map((benefit) => (
+          <div
+            key={benefit.title}
+            className="flex gap-4 rounded-xl border border-border bg-card p-6 shadow-sm"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <benefit.icon className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground">{benefit.title}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 2 Service CTA Cards */}
+      <div className="mx-auto mt-10 max-w-5xl grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {services.map((service) => (
+          <div
+            key={service.title}
+            className="rounded-xl border border-border bg-card p-6 shadow-sm border-l-4 border-l-primary flex flex-col justify-between"
+          >
+            <div>
+              <h3 className="text-xl font-bold text-foreground">{service.title}</h3>
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+            <a
+              href={service.href}
+              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline self-end"
+            >
+              Learn More <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default FeaturesSection;`;
+
+export const bentoCode = `import { Database, BarChart3, Link2, Plug, FileText } from "lucide-react";
+
+const BentoSection = () => (
+  <section className="bg-background py-24 sm:py-32">
+    <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+      <p className="text-base/7 font-semibold text-primary">Platform</p>
+      <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        More than just consulting
+      </p>
+
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
+        {/* Card 1 — Data Management (top-left, span 3) */}
+        <div className="relative lg:col-span-3">
+          <div className="absolute inset-0 rounded-lg bg-card max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]" />
+          <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]">
+            <div className="h-80 bg-gradient-to-br from-primary/10 via-accent to-secondary flex items-center justify-center">
+              <Database className="h-16 w-16 text-primary/40" />
+            </div>
+            <div className="p-10 pt-4">
+              <h3 className="text-sm/4 font-semibold text-primary">Data Management</h3>
+              <p className="mt-2 text-lg font-medium tracking-tight text-foreground">
+                All your compliance data, one place
+              </p>
+              <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground">
+                Centralise material compositions, supplier declarations, and regulatory evidence —
+                structured, searchable, and always audit-ready.
+              </p>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 rounded-lg shadow outline outline-1 outline-black/5 max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]" />
+        </div>
+
+        {/* Card 2 — Compliance Tracking (top-right, span 3) */}
+        <div className="relative lg:col-span-3">
+          <div className="absolute inset-0 rounded-lg bg-card lg:rounded-tr-[2rem]" />
+          <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
+            <div className="h-80 bg-gradient-to-bl from-primary/10 via-accent to-secondary flex items-center justify-center">
+              <BarChart3 className="h-16 w-16 text-primary/40" />
+            </div>
+            <div className="p-10 pt-4">
+              <h3 className="text-sm/4 font-semibold text-primary">Compliance Tracking</h3>
+              <p className="mt-2 text-lg font-medium tracking-tight text-foreground">
+                Real-time regulation readiness
+              </p>
+              <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground">
+                Visual dashboards show exactly where you stand across every requirement —
+                Battery Passport, carbon footprint, due diligence, and more.
+              </p>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 rounded-lg shadow outline outline-1 outline-black/5 lg:rounded-tr-[2rem]" />
+        </div>
+
+        {/* Card 3 — Supply Chain (bottom-left, span 2) */}
+        <div className="relative lg:col-span-2">
+          <div className="absolute inset-0 rounded-lg bg-card lg:rounded-bl-[2rem]" />
+          <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
+            <div className="h-80 bg-gradient-to-tr from-secondary via-accent to-primary/10 flex items-center justify-center">
+              <Link2 className="h-16 w-16 text-primary/40" />
+            </div>
+            <div className="p-10 pt-4">
+              <h3 className="text-sm/4 font-semibold text-primary">Supply Chain</h3>
+              <p className="mt-2 text-lg font-medium tracking-tight text-foreground">
+                End-to-end visibility
+              </p>
+              <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground">
+                Map your supply chain, manage supplier questionnaires, and track due diligence
+                at every tier.
+              </p>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 rounded-lg shadow outline outline-1 outline-black/5 lg:rounded-bl-[2rem]" />
+        </div>
+
+        {/* Card 4 — Integrations (bottom-center, span 2) */}
+        <div className="relative lg:col-span-2">
+          <div className="absolute inset-0 rounded-lg bg-card" />
+          <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
+            <div className="h-80 bg-gradient-to-b from-secondary to-accent flex items-center justify-center">
+              <Plug className="h-16 w-16 text-primary/40" />
+            </div>
+            <div className="p-10 pt-4">
+              <h3 className="text-sm/4 font-semibold text-primary">Integrations</h3>
+              <p className="mt-2 text-lg font-medium tracking-tight text-foreground">
+                Fits into your workflow
+              </p>
+              <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground">
+                Connect your ERP, PLM, and quality management systems. Synex adapts to you —
+                not the other way around.
+              </p>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 rounded-lg shadow outline outline-1 outline-black/5" />
+        </div>
+
+        {/* Card 5 — Reporting (bottom-right, span 2) */}
+        <div className="relative lg:col-span-2">
+          <div className="absolute inset-0 rounded-lg bg-card max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]" />
+          <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]">
+            <div className="h-80 bg-gradient-to-tl from-primary/10 via-accent to-secondary flex items-center justify-center">
+              <FileText className="h-16 w-16 text-primary/40" />
+            </div>
+            <div className="p-10 pt-4">
+              <h3 className="text-sm/4 font-semibold text-primary">Reporting</h3>
+              <p className="mt-2 text-lg font-medium tracking-tight text-foreground">
+                Audit-ready in one click
+              </p>
+              <p className="mt-2 max-w-lg text-sm/6 text-muted-foreground">
+                Generate Battery Passport documents, compliance certificates, and regulatory
+                reports instantly.
+              </p>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 rounded-lg shadow outline outline-1 outline-black/5 max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]" />
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+export default BentoSection;`;
+
+export const opportunitiesCode = `import { Handshake, FlaskConical, CalendarCheck, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const opportunities = [
+  {
+    title: "Become a Partner",
+    description:
+      "Join our network of consulting firms and technology providers. Expand your service offering with Synex's compliance platform and methodology.",
+    icon: Handshake,
+    href: "/contact",
+    cta: "Partner with us",
+  },
+  {
+    title: "Join a Pilot Program",
+    description:
+      "Be among the first to test new platform features. Pilot participants get early access, dedicated support, and shape the product roadmap.",
+    icon: FlaskConical,
+    href: "/contact",
+    cta: "Apply for a pilot",
+  },
+  {
+    title: "Schedule a Demo",
+    description:
+      "See the Synex platform in action. We'll walk you through how it maps to your specific compliance requirements and battery portfolio.",
+    icon: CalendarCheck,
+    href: "/contact",
+    cta: "Book a demo",
+  },
+];
+
+const OpportunitiesSection = () => (
+  <section className="py-24 sm:py-32 bg-background">
+    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl lg:text-center">
+        <p className="text-base font-semibold text-primary">Opportunities</p>
+        <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-pretty">
+          Work with us
+        </h2>
+        <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+          Whether you're looking to partner, pilot, or simply explore — there's a path for you.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 lg:mt-24 lg:max-w-none lg:grid-cols-3">
+        {opportunities.map((item) => (
+          <div
+            key={item.title}
+            className="flex flex-col rounded-2xl border border-border bg-card p-8 shadow-sm transition-shadow hover:shadow-md"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 mb-6">
+              <item.icon className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+            <p className="mt-3 flex-1 text-sm text-muted-foreground leading-relaxed">
+              {item.description}
+            </p>
+            <Link
+              to={item.href}
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+            >
+              {item.cta} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default OpportunitiesSection;`;
+
+export const blogCode = `import { Link } from "react-router-dom";
+
+const posts = [
+  {
+    id: 1,
+    title: "Understanding the EU Battery Regulation: What Manufacturers Need to Know",
+    href: "/resources",
+    description:
+      "A practical overview of the key obligations under Regulation 2023/1542 — from Battery Passports to recycled content targets — and what they mean for your business.",
+    date: "Mar 16, 2025",
+    category: { title: "Battery Regulation", color: "bg-primary/10 text-primary" },
+    author: { name: "Synex Team", role: "Compliance Advisory" },
+  },
+  {
+    id: 2,
+    title: "ESPR Compliance: Digital Product Passports and What's Coming in 2026",
+    href: "/resources",
+    description:
+      "The Ecodesign for Sustainable Products Regulation is reshaping how products are documented and traded in the EU. Here's what to prepare for.",
+    date: "Feb 28, 2025",
+    category: { title: "ESPR", color: "bg-accent text-accent-foreground" },
+    author: { name: "Synex Team", role: "Regulatory Insights" },
+  },
+  {
+    id: 3,
+    title: "Carbon Footprint Declarations: A Step-by-Step Guide for Battery Producers",
+    href: "/resources",
+    description:
+      "From data collection to calculation methodology — how to prepare your carbon footprint declaration in line with the EU's approved standards.",
+    date: "Jan 15, 2025",
+    category: { title: "Guides", color: "bg-secondary text-secondary-foreground" },
+    author: { name: "Synex Team", role: "Technical Guides" },
+  },
+];
+
+const BlogSection = () => (
+  <section className="py-24 sm:py-32 bg-secondary/30">
+    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl lg:text-center">
+        <p className="text-base font-semibold text-primary">From the blog</p>
+        <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-pretty">
+          Latest Resources
+        </h2>
+        <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+          Learn how to grow your compliance practice with our expert advice.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 sm:mt-20 lg:mx-0 lg:mt-24 lg:max-w-none lg:grid-cols-3">
+        {posts.map((post) => (
+          <article key={post.id} className="flex flex-col items-start">
+            <div className="flex items-center gap-x-4 text-xs">
+              <time dateTime={post.date} className="text-muted-foreground">
+                {post.date}
+              </time>
+              <span className={\`relative z-10 rounded-full px-3 py-1.5 font-medium \${post.category.color}\`}>
+                {post.category.title}
+              </span>
+            </div>
+            <div className="group relative">
+              <h3 className="mt-3 text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                <Link to={post.href}>
+                  <span className="absolute inset-0" />
+                  {post.title}
+                </Link>
+              </h3>
+              <p className="mt-4 line-clamp-3 text-sm text-muted-foreground leading-relaxed">
+                {post.description}
+              </p>
+            </div>
+            <div className="relative mt-6 flex items-center gap-x-3">
+              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                <span className="text-xs font-bold text-primary">S</span>
+              </div>
+              <div className="text-sm">
+                <p className="font-semibold text-foreground">{post.author.name}</p>
+                <p className="text-muted-foreground">{post.author.role}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default BlogSection;`;
