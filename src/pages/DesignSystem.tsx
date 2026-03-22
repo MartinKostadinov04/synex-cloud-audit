@@ -23,6 +23,8 @@ import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ResourceBlogSection from "@/components/resources/ResourceBlogSection";
 import ResourceDownloadsSection from "@/components/resources/ResourceDownloadsSection";
 import ConsultingNavSection from "@/components/consulting/ConsultingNavSection";
+import ContactSection from "@/components/contact/ContactSection";
+import ContactDialog from "@/components/contact/ContactDialog";
 import {
   cssTokensCode,
   heroCode,
@@ -39,6 +41,8 @@ import {
   resourceBlogCode,
   resourceDownloadsCode,
   consultingNavCode,
+  contactSectionCode,
+  contactDialogCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
@@ -426,6 +430,14 @@ const DesignSystem = () => {
             </SectionShowcase>
             <SectionShowcase name="Consulting — Service Navigation" code={consultingNavCode}>
               <ConsultingNavSection />
+            </SectionShowcase>
+            <SectionShowcase name="Contact — Inline Section" code={contactSectionCode}>
+              <ContactSection />
+            </SectionShowcase>
+            <SectionShowcase name="Contact — Popup Dialog" code={contactDialogCode}>
+              <div className="flex items-center justify-center py-16 bg-background">
+                <ContactDialog />
+              </div>
             </SectionShowcase>
           </div>
         </Section>
