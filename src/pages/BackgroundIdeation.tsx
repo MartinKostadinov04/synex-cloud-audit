@@ -34,7 +34,7 @@ const BackgroundIdeation = () => {
       case "B":
         return index % 2 === 0
           ? { backgroundColor: "hsl(var(--background))" }
-          : { backgroundColor: "hsl(var(--secondary) / 0.5)" };
+          : { backgroundColor: "hsl(var(--muted))" };
       case "C": {
         const from = [
           "hsl(var(--background))",
