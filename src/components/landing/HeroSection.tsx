@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const HeroSection = () => (
-  <div className="relative isolate overflow-hidden bg-background">
+const HeroSection = ({ className }: { className?: string }) => (
+  <div className={cn("relative isolate overflow-hidden bg-background", className)}>
     {/* Grid background */}
     <svg
       aria-hidden="true"

@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 const logos = [
   {
     alt: "Transistor",

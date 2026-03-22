@@ -1,4 +1,5 @@
 import { Database, BarChart3, Link2, Plug, FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const BentoSection = ({ className }: { className?: string }) => (
   <section className={cn("bg-background py-24 sm:py-32", className)}>

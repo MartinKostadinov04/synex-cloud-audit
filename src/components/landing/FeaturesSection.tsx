@@ -1,4 +1,5 @@
 import { ShieldAlert, Timer, CircleDollarSign, Route, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const benefits = [
   {
