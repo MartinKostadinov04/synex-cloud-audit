@@ -1,7 +1,7 @@
 import { Database, BarChart3, Link2, Plug, FileText } from "lucide-react";
 
-const BentoSection = () => (
-  <section className="bg-background py-24 sm:py-32">
+const BentoSection = ({ className }: { className?: string }) => (
+  <section className={cn("bg-background py-24 sm:py-32", className)}>
     <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
       <p className="text-base/7 font-semibold text-primary">Platform</p>
       <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">

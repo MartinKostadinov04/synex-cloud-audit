@@ -28,9 +28,9 @@ const logos = [
   },
 ];
 
-const LogoCloudSection = () => {
+const LogoCloudSection = ({ className }: { className?: string }) => {
   return (
-    <div className="bg-background py-24 sm:py-32">
+    <div className={cn("bg-background py-24 sm:py-32", className)}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2 className="text-center text-lg/8 font-semibold text-foreground">
           Trusted by the world's most innovative teams

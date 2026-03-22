@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const HeroSection = () => (
   <div className="relative isolate overflow-hidden bg-background">

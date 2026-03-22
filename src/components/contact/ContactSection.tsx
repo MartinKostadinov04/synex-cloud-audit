@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-const ContactSection = () => {
+const ContactSection = ({ className }: { className?: string }) => {
   return (
-    <section className="relative isolate bg-background py-24 sm:py-32">
+    <section className={cn("relative isolate bg-background py-24 sm:py-32", className)}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-16 gap-y-16 lg:grid-cols-2">
           {/* Left — Info */}
