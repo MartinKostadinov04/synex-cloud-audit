@@ -46,6 +46,8 @@ const BackgroundIdeation = () => {
         return "bg-background";
       case "F":
         return index === 0 ? "bg-background" : index % 2 === 0 ? "bg-background" : "bg-muted";
+      case "G":
+        return index % 2 === 0 ? "bg-background" : "bg-muted";
     }
   };
 
