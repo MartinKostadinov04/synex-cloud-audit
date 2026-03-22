@@ -60,7 +60,7 @@ const ContactSection = () => {
           {/* Right — Form */}
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="rounded-2xl border border-border bg-card p-8 shadow-sm lg:p-10"
+            className="rounded-xl sm:rounded-2xl border border-border bg-card p-5 sm:p-8 shadow-sm lg:p-10"
           >
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
               <div className="space-y-2">
