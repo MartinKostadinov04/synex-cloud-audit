@@ -1639,59 +1639,49 @@ const demos = [
   },
 ];
 
-const PhoneMockup = ({ label, uniqueId, location }: { label: string; uniqueId: string; location: string }) => (
-  <div className="relative mx-auto w-52 sm:w-56">
+const PhoneMockup = ({ uniqueId, location }: { uniqueId: string; location: string }) => (
+  <div className="w-48 sm:w-52">
     {/* Phone frame */}
-    <div className="rounded-[2.5rem] border-[6px] border-foreground bg-foreground p-1 shadow-xl">
+    <div className="rounded-[2.5rem] border-[6px] border-foreground bg-foreground p-1 shadow-2xl">
       {/* Notch */}
       <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-foreground" />
 
       {/* Screen */}
       <div className="overflow-hidden rounded-[2rem] bg-muted">
-        {/* Status bar area */}
-        <div className="flex items-center justify-between px-5 pt-8 pb-3">
-          {/* Brand mark */}
-          <div className="flex h-7 w-7 items-center justify-center">
-            <div className="h-5 w-5 rotate-45 rounded-sm bg-primary" />
-          </div>
-          <Menu className="h-5 w-5 text-muted-foreground" />
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 pt-8 pb-2">
+          <div className="h-6 w-6 rotate-45 rounded-sm bg-primary" />
+          <Menu className="h-4 w-4 text-muted-foreground" />
         </div>
 
-        {/* Product visual area */}
-        <div className="flex h-44 items-center justify-center px-4">
-          <div className="flex flex-col items-center gap-1 text-muted-foreground">
-            <div className="h-16 w-16 rounded-full bg-muted-foreground/10 flex items-center justify-center">
-              <span className="text-xs font-medium text-muted-foreground/60">
-                {label}
+        {/* Product area */}
+        <div className="flex h-36 items-center justify-center">
+          <div className="flex flex-col items-center gap-1">
+            <div className="h-20 w-20 rounded-lg bg-muted-foreground/5 flex items-center justify-center">
+              <span className="text-[10px] font-medium text-muted-foreground/40 tracking-wide">
+                synex
               </span>
             </div>
-            <span className="text-[10px] font-medium tracking-wide text-muted-foreground/50">
-              synex
-            </span>
           </div>
         </div>
 
         {/* Data rows */}
-        <div className="border-t border-border/50 px-4 py-2.5">
-          <div className="grid grid-cols-2 gap-x-3 text-[9px]">
+        <div className="border-t border-border/40 px-3 py-2">
+          <div className="grid grid-cols-2 gap-x-2 text-[8px]">
             <div>
-              <p className="text-muted-foreground/60">Unique ID:</p>
-              <p className="font-medium text-foreground/80 truncate">{uniqueId}</p>
+              <p className="text-muted-foreground/50">Unique ID:</p>
+              <p className="font-medium text-foreground/70 truncate">{uniqueId}</p>
             </div>
             <div>
-              <p className="text-muted-foreground/60">Manufactured in:</p>
-              <p className="font-medium text-foreground/80">{location}</p>
+              <p className="text-muted-foreground/50">Manufactured in:</p>
+              <p className="font-medium text-foreground/70">{location}</p>
             </div>
           </div>
         </div>
-        <div className="border-t border-border/50 px-4 py-2.5">
-          <div className="grid grid-cols-2 gap-x-3 text-[9px]">
-            <div>
-              <p className="text-muted-foreground/60">Manufacturing Date:</p>
-            </div>
-            <div>
-              <p className="text-muted-foreground/60">Product Size</p>
-            </div>
+        <div className="border-t border-border/40 px-3 py-2">
+          <div className="grid grid-cols-2 gap-x-2 text-[8px]">
+            <p className="text-muted-foreground/50">Manufacturing Date:</p>
+            <p className="text-muted-foreground/50">Product Size</p>
           </div>
         </div>
       </div>
@@ -1712,34 +1702,33 @@ const DemosSection = () => {
         </div>
 
         {/* Cards */}
-        <div className="mx-auto mt-16 grid max-w-sm grid-cols-1 gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-sm grid-cols-1 gap-10 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3">
           {demos.map((demo) => (
-            <div
-              key={demo.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-lg"
-            >
-              {/* Phone mockup area */}
-              <div className="flex justify-center bg-muted/40 px-6 pt-10 pb-6">
-                <PhoneMockup
-                  label={demo.productLabel}
-                  uniqueId={demo.uniqueId}
-                  location={demo.location}
-                />
-              </div>
+            <div key={demo.id} className="group relative">
+              {/* Layered container — phone behind, card in front */}
+              <div className="relative flex flex-col items-center">
+                {/* Phone — sits behind the card, peeks out at top */}
+                <div className="relative z-0 flex justify-center transition-transform duration-300 ease-out group-hover:-translate-y-3">
+                  <PhoneMockup
+                    uniqueId={demo.uniqueId}
+                    location={demo.location}
+                  />
+                </div>
 
-              {/* Text content */}
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-lg font-bold text-foreground">{demo.title}</h3>
-                <p className="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
-                  {demo.description}
-                </p>
-                <Link
-                  to={demo.href}
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
-                >
-                  View DPP
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                {/* Card — overlaps the bottom of the phone */}
+                <div className="relative z-10 -mt-16 w-full rounded-2xl border border-border bg-card p-6 shadow-sm">
+                  <h3 className="text-lg font-bold text-foreground">{demo.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    {demo.description}
+                  </p>
+                  <Link
+                    to={demo.href}
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+                  >
+                    View DPP
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
