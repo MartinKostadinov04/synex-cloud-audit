@@ -73,10 +73,10 @@ const BentoSection = () => (
         <div className="relative lg:col-span-2">
           <div className="absolute inset-0 rounded-lg bg-card" />
           <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
-            <div className="h-80 bg-gradient-to-b from-secondary to-accent flex items-center justify-center">
+            <div className="h-48 sm:h-80 bg-gradient-to-b from-secondary to-accent flex items-center justify-center">
               <Plug className="h-16 w-16 text-primary/40" />
             </div>
-            <div className="p-10 pt-4">
+            <div className="p-6 sm:p-10 pt-4">
               <h3 className="text-sm/4 font-semibold text-primary">Integrations</h3>
               <p className="mt-2 text-lg font-medium tracking-tight text-foreground">
                 Fits into your workflow
