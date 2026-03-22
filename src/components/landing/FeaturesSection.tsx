@@ -1,61 +1,101 @@
-import { Map, Database, Link2, Leaf } from "lucide-react";
+import { ShieldAlert, Timer, EuroSign, Route, ArrowRight } from "lucide-react";
 
-const features = [
+const benefits = [
   {
-    name: "Compliance Roadmaps",
+    icon: ShieldAlert,
+    title: "Reduce Compliance Risks",
     description:
-      "End-to-end compliance roadmap tailored to your battery type and target market. Know exactly what's required, when it's due, and how to get there.",
-    icon: Map,
+      "Stay ahead of regulations and avoid penalties with expert support that ensures compliance with evolving legal and industry requirements.",
   },
   {
-    name: "Automated Data Collection",
+    icon: Timer,
+    title: "Accelerate Time to Market",
     description:
-      "Streamline data gathering for Battery Passport requirements. Our platform pulls, validates, and organises the information you need — automatically.",
-    icon: Database,
+      "Streamline EU market entry or continuity by navigating with expert support — reducing delays and enabling confident, compliant operations.",
   },
   {
-    name: "Supply Chain Due Diligence",
+    icon: EuroSign,
+    title: "Avoid Hidden Costs",
     description:
-      "Manage upstream due diligence obligations with structured workflows, supplier questionnaires, and audit-ready documentation.",
-    icon: Link2,
+      "Prevent costly reworks and missed opportunities by addressing compliance early, turning complex requirements into operational clarity and efficiency.",
   },
   {
-    name: "Carbon Footprint Calculation",
+    icon: Route,
+    title: "Tailored Compliance Roadmaps",
     description:
-      "Calculate your battery's carbon footprint aligned with the EU's approved methodology. Transparent, auditable, and regulation-ready.",
-    icon: Leaf,
+      "Get customized, step-by-step regulatory plans aligned with your business needs and goals — focused, actionable, and growth-oriented.",
+  },
+];
+
+const services = [
+  {
+    title: "Battery Regulation Consulting",
+    description:
+      "Navigate complex EU battery rules with expert guidance on compliance strategy, data requirements, labeling, and digital battery passport implementation.",
+    href: "/batteryreg",
+  },
+  {
+    title: "ESPR Consulting",
+    description:
+      "Get tailored support to align your products with ESPR, covering design requirements, DPP readiness, data strategy, and supply chain coordination.",
+    href: "/espr",
   },
 ];
 
 const FeaturesSection = () => (
-  <section className="py-24 sm:py-32 bg-background">
+  <section className="py-24 sm:py-32 bg-muted/40">
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
-      <div className="mx-auto max-w-2xl lg:text-center">
-        <p className="text-base font-semibold text-primary">Why Synex</p>
-        <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-pretty">
-          Forget about compliance complexity
+      {/* Header */}
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-pretty">
+          <span className="text-primary">Forget</span> about compliance complexity
         </h2>
         <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-          Battery regulation compliance doesn't have to be overwhelming. Our structured approach breaks down every requirement into clear, manageable steps.
+          Regulation compliance is a project that needs its research, planning and implementation. Avoid risk and streamline these processes so you can worry less and sell more.
         </p>
       </div>
 
-      <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-        <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-          {features.map((feature) => (
-            <div key={feature.name} className="relative pl-16">
-              <dt className="text-base font-semibold text-foreground">
-                <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-                  <feature.icon aria-hidden="true" className="h-6 w-6 text-primary-foreground" />
-                </div>
-                {feature.name}
-              </dt>
-              <dd className="mt-2 text-base text-muted-foreground leading-relaxed">
-                {feature.description}
-              </dd>
+      {/* 4 Benefit Cards */}
+      <div className="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {benefits.map((benefit) => (
+          <div
+            key={benefit.title}
+            className="flex gap-4 rounded-xl border border-border bg-card p-6 shadow-sm"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <benefit.icon className="h-5 w-5" />
             </div>
-          ))}
-        </dl>
+            <div>
+              <h3 className="font-semibold text-foreground">{benefit.title}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 2 Service CTA Cards */}
+      <div className="mx-auto mt-10 max-w-5xl grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {services.map((service) => (
+          <div
+            key={service.title}
+            className="rounded-xl border border-border bg-card p-6 shadow-sm border-l-4 border-l-primary flex flex-col justify-between"
+          >
+            <div>
+              <h3 className="text-xl font-bold text-foreground">{service.title}</h3>
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+            <a
+              href={service.href}
+              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline self-end"
+            >
+              Learn More <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   </section>
