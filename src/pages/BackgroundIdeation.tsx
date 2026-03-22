@@ -85,10 +85,62 @@ const BackgroundIdeation = () => {
       return <div className="relative overflow-hidden">{warmOverlay(index)}{children}</div>;
     }
     if (active === "G") {
-      // Grid on every other section (odd indices get the grid)
+      const showGrid = index % 2 === 0;
+      const showCloud = index % 2 === 1;
       return (
-        <div className="relative isolate overflow-hidden">
-          {index % 2 === 0 && <HeroGridBackground id={`grid-bg-${index}`} />}
+        <div className="relative isolate overflow-hidden bg-background">
+          {/* Faded grid on even sections */}
+          {showGrid && (
+            <svg
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 size-full opacity-[0.35]"
+              style={{ stroke: "hsl(var(--border))" }}
+            >
+              <defs>
+                <pattern id={`grid-bg-${index}`} x="50%" y={-1} width={200} height={200} patternUnits="userSpaceOnUse">
+                  <path d="M.5 200V.5H200" fill="none" />
+                </pattern>
+              </defs>
+              <rect fill={`url(#grid-bg-${index})`} width="100%" height="100%" strokeWidth={0} />
+            </svg>
+          )}
+          {/* Warm cloud blob on odd sections */}
+          {showCloud && (
+            <>
+              <div
+                aria-hidden="true"
+                className="absolute -z-10 transform-gpu blur-3xl"
+                style={{
+                  left: "calc(50% - 20rem)",
+                  top: "calc(50% - 18rem)",
+                }}
+              >
+                <div
+                  className="aspect-[1108/632] w-[60rem] opacity-[0.12]"
+                  style={{
+                    background: "linear-gradient(135deg, hsl(var(--synex-orange-light)), hsl(var(--synex-orange)))",
+                    clipPath: "polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)",
+                  }}
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                className="absolute -z-10 transform-gpu blur-3xl"
+                style={{
+                  right: "calc(50% - 24rem)",
+                  bottom: "calc(50% - 16rem)",
+                }}
+              >
+                <div
+                  className="aspect-[1108/632] w-[50rem] opacity-[0.08]"
+                  style={{
+                    background: "linear-gradient(to top left, hsl(var(--synex-orange)), hsl(var(--accent)))",
+                    clipPath: "polygon(20% 0%, 80% 10%, 100% 35%, 85% 70%, 60% 100%, 15% 85%, 0% 50%)",
+                  }}
+                />
+              </div>
+            </>
+          )}
           {children}
         </div>
       );
