@@ -22,6 +22,7 @@ import ConsultationCTA from "@/components/battery-reg/ConsultationCTA";
 import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ResourceBlogSection from "@/components/resources/ResourceBlogSection";
 import ResourceDownloadsSection from "@/components/resources/ResourceDownloadsSection";
+import ConsultingNavSection from "@/components/consulting/ConsultingNavSection";
 import {
   cssTokensCode,
   heroCode,
@@ -37,6 +38,7 @@ import {
   logoCloudCode,
   resourceBlogCode,
   resourceDownloadsCode,
+  consultingNavCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
@@ -421,6 +423,9 @@ const DesignSystem = () => {
             </SectionShowcase>
             <SectionShowcase name="Resources — Downloads with Preview" code={resourceDownloadsCode}>
               <ResourceDownloadsSection />
+            </SectionShowcase>
+            <SectionShowcase name="Consulting — Service Navigation" code={consultingNavCode}>
+              <ConsultingNavSection />
             </SectionShowcase>
           </div>
         </Section>
