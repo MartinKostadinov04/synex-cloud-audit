@@ -26,6 +26,7 @@ import ConsultingNavSection from "@/components/consulting/ConsultingNavSection";
 import ContactSection from "@/components/contact/ContactSection";
 import ContactDialog from "@/components/contact/ContactDialog";
 import DemosSection from "@/components/landing/DemosSection";
+import PracticalGuideSection from "@/components/landing/PracticalGuideSection";
 import {
   cssTokensCode,
   heroCode,
