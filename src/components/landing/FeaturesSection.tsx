@@ -45,13 +45,7 @@ const services = [
 const FeaturesSection = () => (
   <section className="relative py-24 sm:py-32 overflow-hidden">
     {/* Soft gradient background */}
-    <div
-      className="absolute inset-0 -z-10"
-      style={{
-        background:
-          "linear-gradient(160deg, hsl(var(--muted) / 0.5) 0%, hsl(var(--background)) 40%, hsl(var(--primary) / 0.04) 100%)",
-      }}
-    />
+    <div className="absolute inset-0 -z-10 bg-gradient-to-br from-muted/60 via-background to-primary/5" />
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       {/* Header */}
       <div className="mx-auto max-w-2xl text-center">
