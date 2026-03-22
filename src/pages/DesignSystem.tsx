@@ -41,6 +41,8 @@ import {
   resourceBlogCode,
   resourceDownloadsCode,
   consultingNavCode,
+  contactSectionCode,
+  contactDialogCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
