@@ -2,7 +2,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, BarChart3, ShieldCheck, Recycle } from "lucide-react";
 import { useScrollFade } from "@/hooks/use-scroll-fade";
 
-const tabs = [
+interface TabData {
+  value: string;
+  label: string;
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  features: string[];
+  image?: string;
+}
+
+const tabs: TabData[] = [
   {
     value: "passport",
     label: "Battery Passport",
@@ -61,32 +71,46 @@ const tabs = [
   },
 ];
 
-const ServicesTabsSection = () => {
+interface ServicesTabsSectionProps {
+  /** When true, shows the image column on the right */
+  withImage?: boolean;
+  /** Override the default tabs data */
+  data?: TabData[];
+  className?: string;
+}
+
+const ServicesTabsSection = ({
+  withImage = false,
+  data,
+  className,
+}: ServicesTabsSectionProps) => {
   const { ref, isVisible } = useScrollFade();
+  const tabsData = data ?? tabs;
 
   return (
-    <section ref={ref} className="py-20 bg-secondary/40">
+    <section ref={ref} className={`py-20 bg-secondary/40 ${className ?? ""}`}>
       <div
         className={`container transition-all duration-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         <div className="max-w-2xl mx-auto text-center mb-10">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
             What can we do for you?
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Our services cover every pillar of the EU Battery Regulation. Choose an area to learn more.
+            Our services cover every pillar of the EU Battery Regulation. Choose
+            an area to learn more.
           </p>
         </div>
 
-        <Tabs defaultValue="passport" className="max-w-4xl mx-auto">
+        <Tabs defaultValue={tabsData[0]?.value} className="max-w-5xl mx-auto">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto gap-1 bg-secondary p-1">
-            {tabs.map((tab) => (
+            {tabsData.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="gap-1.5 text-xs md:text-sm py-2.5 data-[state=active]:bg-background"
+                className="gap-1.5 text-xs md:text-sm py-2.5 data-[state=active]:bg-background data-[state=active]:text-foreground"
               >
                 <tab.icon className="h-4 w-4" />
                 <span className="hidden sm:inline">{tab.label}</span>
@@ -94,26 +118,49 @@ const ServicesTabsSection = () => {
             ))}
           </TabsList>
 
-          {tabs.map((tab) => (
+          {tabsData.map((tab) => (
             <TabsContent key={tab.value} value={tab.value} className="mt-6">
               <div className="rounded-lg border border-border bg-card p-6 md:p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {tab.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed mb-5">
-                  {tab.description}
-                </p>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {tab.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center gap-2 text-sm text-foreground"
-                    >
-                      <div className="h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                <div
+                  className={
+                    withImage && tab.image
+                      ? "grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+                      : ""
+                  }
+                >
+                  {/* Text content */}
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground mb-3">
+                      {tab.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed mb-5">
+                      {tab.description}
+                    </p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {tab.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="flex items-center gap-2 text-sm text-foreground"
+                        >
+                          <div className="h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Image column */}
+                  {withImage && tab.image && (
+                    <div className="rounded-lg overflow-hidden border border-border bg-muted">
+                      <img
+                        src={tab.image}
+                        alt={tab.title}
+                        className="w-full h-auto object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </TabsContent>
           ))}
@@ -123,4 +170,5 @@ const ServicesTabsSection = () => {
   );
 };
 
+export { type TabData };
 export default ServicesTabsSection;
