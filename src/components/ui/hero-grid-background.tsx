@@ -5,7 +5,7 @@
 const HeroGridBackground = ({ id = "hero-grid-bg" }: { id?: string }) => (
   <svg
     aria-hidden="true"
-    className="absolute inset-0 -z-10 size-full stroke-border [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+    className="absolute inset-0 -z-10 size-full stroke-border"
   >
     <defs>
       <pattern id={id} x="50%" y={-1} width={200} height={200} patternUnits="userSpaceOnUse">
