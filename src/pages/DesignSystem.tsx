@@ -416,6 +416,12 @@ const DesignSystem = () => {
             <SectionShowcase name="Logo Cloud" code={logoCloudCode}>
               <LogoCloudSection />
             </SectionShowcase>
+            <SectionShowcase name="Resources — Blog with Search/Filter/Load More" code={resourceBlogCode}>
+              <ResourceBlogSection />
+            </SectionShowcase>
+            <SectionShowcase name="Resources — Downloads with Preview" code={resourceDownloadsCode}>
+              <ResourceDownloadsSection />
+            </SectionShowcase>
           </div>
         </Section>
       </main>
