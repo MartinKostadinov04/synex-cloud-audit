@@ -946,9 +946,9 @@ const ConsultationCTA = () => {
   );
 };
 
-export default ConsultationCTA;\`;
+export default ConsultationCTA;`;
 
-export const logoCloudCode = \`const logos = [
+export const logoCloudCode = `const logos = [
   {
     alt: "Transistor",
     light: "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg",
