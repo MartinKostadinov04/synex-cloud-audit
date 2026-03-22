@@ -69,8 +69,8 @@ const Footer = () => (
           </p>
         </div>
 
-        {/* Nav columns — hidden on mobile */}
-        <div className="hidden md:grid mt-16 grid-cols-2 gap-8 xl:col-span-2 xl:mt-0 lg:grid-cols-3">
+        {/* Nav columns */}
+        <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0 lg:grid-cols-3">
           <div>
             <h3 className="text-sm font-semibold text-foreground">Services</h3>
             <ul role="list" className="mt-6 space-y-4">
