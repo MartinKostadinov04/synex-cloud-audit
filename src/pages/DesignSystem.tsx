@@ -44,6 +44,7 @@ import {
   consultingNavCode,
   contactSectionCode,
   contactDialogCode,
+  demosSectionCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
