@@ -7,83 +7,130 @@ import BentoSection from "@/components/landing/BentoSection";
 import LogoCloudSection from "@/components/landing/LogoCloudSection";
 import ContactSection from "@/components/contact/ContactSection";
 
-/**
- * Background Treatment Ideation Page
- *
- * 6 strategies for section backgrounds:
- *   A — Flat white (no treatment)
- *   B — Alternating white / secondary
- *   C — Subtle gradient shifts between sections
- *   D — Dot pattern + gradient (current FeaturesSection style)
- *   E — Brand gradient wash (warm orange glow across page)
- *   F — Navy-anchored (dark header/footer bookends with light middle)
- */
-
 type Strategy = "A" | "B" | "C" | "D" | "E" | "F";
 
 const strategies: { key: Strategy; label: string; description: string }[] = [
-  {
-    key: "A",
-    label: "Flat White",
-    description: "No background treatment — pure white everywhere. Clean but can feel sterile.",
-  },
-  {
-    key: "B",
-    label: "Alternating Bands",
-    description: "Classic white ↔ secondary/muted zebra striping. Separates sections visually.",
-  },
-  {
-    key: "C",
-    label: "Gradient Shifts",
-    description: "Each section subtly shifts hue — white → warm cream → cool grey → white. Organic flow.",
-  },
-  {
-    key: "D",
-    label: "Pattern + Gradient",
-    description: "Dot pattern overlay with diagonal gradient. Adds texture and depth without imagery.",
-  },
-  {
-    key: "E",
-    label: "Brand Warm Wash",
-    description: "Subtle orange glow radiates from hero downward, fading to white. Branded but soft.",
-  },
-  {
-    key: "F",
-    label: "Navy Bookends",
-    description: "Dark navy hero + footer with light middle sections. Creates strong visual anchoring.",
-  },
+  { key: "A", label: "Flat White", description: "No background treatment — pure white everywhere. Clean but can feel sterile." },
+  { key: "B", label: "Alternating Bands", description: "Classic white ↔ secondary/muted zebra striping. Separates sections visually." },
+  { key: "C", label: "Gradient Shifts", description: "Each section subtly shifts hue — white → warm cream → cool grey → white. Organic flow." },
+  { key: "D", label: "Pattern + Gradient", description: "Dot pattern overlay with diagonal gradient. Adds texture and depth without imagery." },
+  { key: "E", label: "Brand Warm Wash", description: "Subtle orange glow radiates from hero downward, fading to white. Branded but soft." },
+  { key: "F", label: "Navy Bookends", description: "Dark navy hero + footer with light middle sections. Creates strong visual anchoring." },
 ];
 
-// Background wrappers per strategy
-const sectionBg = (strategy: Strategy, index: number): string => {
-  switch (strategy) {
-    case "A":
-      return "bg-background";
-    case "B":
-      return index % 2 === 0 ? "bg-background" : "bg-secondary/50";
-    case "C": {
-      const shifts = [
-        "bg-background",
-        "bg-gradient-to-b from-background to-accent/20",
-        "bg-gradient-to-b from-accent/20 to-secondary/50",
-        "bg-gradient-to-b from-secondary/50 to-muted/30",
-        "bg-gradient-to-b from-muted/30 to-background",
-      ];
-      return shifts[index % shifts.length];
-    }
-    case "D": return ""; // handled inline
-    case "E": return ""; // handled inline
-    case "F":
-      return index === 0
-        ? "" // hero gets special treatment
-        : index % 2 === 0
-        ? "bg-background"
-        : "bg-secondary/30";
-  }
-};
+/**
+ * Wraps a section component with a background treatment.
+ * Uses a CSS trick: the wrapper sets the bg, and we force any direct bg-background
+ * on the child to become transparent so the wrapper shows through.
+ */
+const BgWrap = ({
+  children,
+  className = "",
+  style,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) => (
+  <div
+    className={`relative ${className}`}
+    style={style}
+  >
+    {/* Force child section bg-background to be transparent */}
+    <div className="[&_>section]:!bg-transparent [&_>div]:!bg-transparent [&_.bg-background]:!bg-transparent">
+      {children}
+    </div>
+  </div>
+);
 
 const BackgroundIdeation = () => {
   const [active, setActive] = useState<Strategy>("B");
+
+  // Background classes per section index
+  const getBg = (index: number) => {
+    switch (active) {
+      case "A":
+        return "bg-background";
+      case "B":
+        return index % 2 === 0 ? "bg-background" : "bg-secondary/50";
+      case "C": {
+        const shifts = [
+          "bg-background",
+          "bg-gradient-to-b from-background to-accent/30",
+          "bg-gradient-to-b from-accent/30 to-secondary/60",
+          "bg-gradient-to-b from-secondary/60 to-muted/40",
+          "bg-gradient-to-b from-muted/40 to-background",
+        ];
+        return shifts[index % shifts.length];
+      }
+      case "D":
+        return "";
+      case "E":
+        return "";
+      case "F":
+        return index % 2 === 0 ? "bg-background" : "bg-secondary/30";
+    }
+  };
+
+  // Dot pattern style
+  const dotStyle: React.CSSProperties = {
+    backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
+    backgroundSize: "24px 24px",
+  };
+
+  const renderSection = (component: React.ReactNode, index: number) => {
+    if (active === "D") {
+      const gradients = [
+        "from-muted/50 via-background to-accent/20",
+        "from-accent/20 to-secondary/40",
+        "from-secondary/40 via-background to-primary/5",
+        "from-primary/5 via-accent/15 to-secondary/50",
+        "from-muted/40 via-background to-primary/5",
+      ];
+      return (
+        <BgWrap className="bg-background">
+          <div className="absolute inset-0 -z-10 opacity-[0.3]" style={dotStyle} />
+          <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${gradients[index % gradients.length]}`} />
+          {component}
+        </BgWrap>
+      );
+    }
+
+    if (active === "E") {
+      const opacities = ["0.07", "0.04", "0.03", "0.02", "0.01"];
+      return (
+        <BgWrap className="bg-background">
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              background: `linear-gradient(180deg, hsl(var(--synex-orange) / ${opacities[index] ?? "0.01"}) 0%, transparent 100%)`,
+            }}
+          />
+          {component}
+        </BgWrap>
+      );
+    }
+
+    if (active === "F" && index === 0) {
+      return (
+        <div className="bg-[hsl(var(--synex-navy-1))]">
+          <div className="[&_section]:!bg-transparent [&_>div]:!bg-transparent [&_.bg-background]:!bg-transparent [&_h1]:!text-white [&_.text-foreground]:!text-white [&_.text-muted-foreground]:!text-white/70 [&_.bg-accent]:!bg-white/10 [&_.bg-card]:!bg-white/5 [&_.border-border]:!border-white/10 [&_.bg-secondary]:!bg-white/10 [&_.bg-primary\\/10]:!bg-primary/20 [&_.bg-primary\\/5]:!bg-primary/10">
+            {component}
+          </div>
+        </div>
+      );
+    }
+
+    return <BgWrap className={getBg(index)}>{component}</BgWrap>;
+  };
+
+  const sections = [
+    <HeroSection key="hero" />,
+    <LogoCloudSection key="logos" />,
+    <FeaturesSection key="features" />,
+    <BentoSection key="bento" />,
+    <ContactSection key="contact" />,
+  ];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -94,7 +141,7 @@ const BackgroundIdeation = () => {
         <div className="container py-3">
           <div className="flex items-center gap-3 overflow-x-auto pb-1">
             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0">
-              Background:
+              BG:
             </span>
             {strategies.map((s) => (
               <button
@@ -110,139 +157,21 @@ const BackgroundIdeation = () => {
               </button>
             ))}
           </div>
-          <p className="mt-1.5 text-xs text-muted-foreground">
+          <p className="mt-1 text-xs text-muted-foreground">
             {strategies.find((s) => s.key === active)?.description}
           </p>
         </div>
       </div>
 
-      {/* === Page content with dynamic backgrounds === */}
       <main className="flex-1">
-        {/* Section 0: Hero */}
-        {active === "F" ? (
-          <div className="relative bg-[hsl(var(--synex-navy-1))]">
-            {/* Override hero text colors for dark bg */}
-            <div className="[&_h1]:text-white [&_.text-foreground]:text-white [&_.text-muted-foreground]:text-white/70 [&_.text-accent-foreground]:text-white [&_.bg-accent]:bg-white/10 [&_.bg-primary\\/10]:bg-primary/20 [&_.bg-primary\\/5]:bg-primary/10 [&_.bg-card]:bg-white/5 [&_.border-border]:border-white/10 [&_.bg-secondary]:bg-white/10 [&_.text-sm.text-muted-foreground]:text-white/60 [&_.font-semibold.text-foreground]:text-white [&_.font-medium.text-foreground]:text-white">
-              <HeroSection />
-            </div>
-          </div>
-        ) : active === "E" ? (
-          <div className="relative">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[hsl(var(--synex-orange)/0.06)] via-[hsl(var(--synex-orange-light)/0.04)] to-transparent" />
-            <HeroSection />
-          </div>
-        ) : active === "D" ? (
-          <div className="relative">
-            <div
-              className="absolute inset-0 -z-10 opacity-[0.35]"
-              style={{
-                backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-muted/50 via-background to-accent/20" />
-            <HeroSection />
-          </div>
-        ) : (
-          <div className={sectionBg(active, 0)}>
-            <HeroSection />
-          </div>
-        )}
-
-        {/* Section 1: Logo Cloud */}
-        {active === "D" ? (
-          <div className="relative">
-            <div
-              className="absolute inset-0 -z-10 opacity-[0.25]"
-              style={{
-                backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/20 to-secondary/40" />
-            <LogoCloudSection />
-          </div>
-        ) : active === "E" ? (
-          <div className="relative">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[hsl(var(--synex-orange-light)/0.03)] to-transparent" />
-            <LogoCloudSection />
-          </div>
-        ) : (
-          <div className={sectionBg(active, 1)}>
-            <LogoCloudSection />
-          </div>
-        )}
-
-        {/* Section 2: Features */}
-        {active === "D" ? (
-          <FeaturesSection />
-        ) : active === "E" ? (
-          <div className="relative">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-[hsl(var(--synex-orange)/0.03)] to-accent/10" />
-            <FeaturesSection />
-          </div>
-        ) : (
-          <div className={sectionBg(active, 2)}>
-            <FeaturesSection />
-          </div>
-        )}
-
-        {/* Section 3: Bento */}
-        {active === "D" ? (
-          <div className="relative">
-            <div
-              className="absolute inset-0 -z-10 opacity-[0.3]"
-              style={{
-                backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-tl from-secondary/50 via-background to-accent/15" />
-            <BentoSection />
-          </div>
-        ) : active === "E" ? (
-          <div className="relative">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accent/10 to-background" />
-            <BentoSection />
-          </div>
-        ) : (
-          <div className={sectionBg(active, 3)}>
-            <BentoSection />
-          </div>
-        )}
-
-        {/* Section 4: Contact */}
-        {active === "D" ? (
-          <div className="relative">
-            <div
-              className="absolute inset-0 -z-10 opacity-[0.2]"
-              style={{
-                backgroundImage: "radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-muted/40 via-background to-primary/5" />
-            <ContactSection />
-          </div>
-        ) : active === "E" ? (
-          <div className="relative">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[hsl(var(--synex-orange)/0.04)] to-background" />
-            <ContactSection />
-          </div>
-        ) : active === "F" ? (
-          <div className="bg-secondary/20">
-            <ContactSection />
-          </div>
-        ) : (
-          <div className={sectionBg(active, 4)}>
-            <ContactSection />
-          </div>
-        )}
+        {sections.map((section, i) => (
+          <div key={i}>{renderSection(section, i)}</div>
+        ))}
       </main>
 
-      {/* Footer — navy override for strategy F */}
+      {/* Footer — navy for F */}
       {active === "F" ? (
-        <div className="bg-[hsl(var(--synex-navy-1))] [&_footer]:bg-transparent [&_footer]:border-white/10 [&_.text-foreground]:text-white [&_.text-muted-foreground]:text-white/60 [&_.text-sm.font-semibold]:text-white [&_.border-border]:border-white/10 [&_a]:text-white/60 [&_a:hover]:text-white [&_input]:bg-white/5 [&_input]:border-white/10 [&_input]:text-white [&_input::placeholder]:text-white/40">
+        <div className="bg-[hsl(var(--synex-navy-1))] [&_footer]:!bg-transparent [&_footer]:!border-white/10 [&_.text-foreground]:!text-white [&_.text-muted-foreground]:!text-white/60 [&_.border-border]:!border-white/10 [&_a]:!text-white/60 hover:[&_a]:!text-white [&_input]:!bg-white/5 [&_input]:!border-white/10 [&_input]:!text-white">
           <Footer />
         </div>
       ) : (
