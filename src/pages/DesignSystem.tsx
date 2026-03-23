@@ -31,6 +31,7 @@ import PracticalGuideSection from "@/components/landing/PracticalGuideSection";
 import BatteryPassportOverview from "@/components/battery-reg/BatteryPassportOverview";
 import HeroGridBackground from "@/components/ui/hero-grid-background";
 import { PageHeaderWatermark, PageHeaderCloudTrail, PageHeaderHeroGrid, PageHeaderAccentBar } from "@/components/ui/page-headers";
+import FAQSection from "@/components/FAQSection";
 import {
   cssTokensCode,
   heroCode,
@@ -55,6 +56,8 @@ import {
   heroGridBgCode,
   pageHeadersCode,
   footerCode,
+  faqSectionCode,
+  notFoundCode,
 } from "@/components/design-system/section-codes";
 
 /* ─── Helpers ─── */
