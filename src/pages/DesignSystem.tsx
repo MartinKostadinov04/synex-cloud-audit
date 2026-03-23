@@ -1023,7 +1023,7 @@ const DesignSystem = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  <tr><td className="py-3 pr-6 font-mono text-xs">base</td><td className="py-3 pr-6 font-mono text-xs">0–639px</td><td className="py-3 pr-6">Mobile portrait</td><td className="py-3 text-xs text-muted-foreground">Single column, sheet drawer nav, footer nav hidden, reduced padding</td></tr>
+                  <tr><td className="py-3 pr-6 font-mono text-xs">base</td><td className="py-3 pr-6 font-mono text-xs">0–639px</td><td className="py-3 pr-6">Mobile portrait</td><td className="py-3 text-xs text-muted-foreground">Single column, sheet drawer nav, footer nav 2-col, reduced padding</td></tr>
                   <tr><td className="py-3 pr-6 font-mono text-xs">sm (640px)</td><td className="py-3 pr-6 font-mono text-xs">640–767px</td><td className="py-3 pr-6">Mobile landscape</td><td className="py-3 text-xs text-muted-foreground">2-col grids begin, heading sizes scale up, card padding increases</td></tr>
                   <tr><td className="py-3 pr-6 font-mono text-xs">md (768px)</td><td className="py-3 pr-6 font-mono text-xs">768–1023px</td><td className="py-3 pr-6">Tablet portrait</td><td className="py-3 text-xs text-muted-foreground">Footer nav columns visible, 2-col card grids, form side-by-side fields</td></tr>
                   <tr><td className="py-3 pr-6 font-mono text-xs">lg (1024px)</td><td className="py-3 pr-6 font-mono text-xs">1024–1279px</td><td className="py-3 pr-6">Tablet landscape</td><td className="py-3 text-xs text-muted-foreground">Navbar full links (no sheet), 3-col grids, bento 6-col grid, hero split layout</td></tr>
