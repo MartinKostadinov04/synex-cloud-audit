@@ -1072,7 +1072,7 @@ const DesignSystem = () => {
                     <tr><td className="py-3 pr-6">Card radius</td><td className="py-3 pr-6 font-mono text-xs">rounded-xl</td><td className="py-3 pr-6 font-mono text-xs">rounded-2xl</td><td className="py-3 font-mono text-xs">rounded-xl sm:rounded-2xl</td></tr>
                     <tr><td className="py-3 pr-6">Grid gap</td><td className="py-3 pr-6 font-mono text-xs">gap-6 (24px)</td><td className="py-3 pr-6 font-mono text-xs">gap-8 (32px)</td><td className="py-3 font-mono text-xs">gap-6 sm:gap-8</td></tr>
                     <tr><td className="py-3 pr-6">Navbar</td><td className="py-3 pr-6 font-mono text-xs">Sheet drawer</td><td className="py-3 pr-6 font-mono text-xs">Full links</td><td className="py-3 font-mono text-xs">hidden lg:flex / lg:hidden</td></tr>
-                    <tr><td className="py-3 pr-6">Footer nav</td><td className="py-3 pr-6 font-mono text-xs">Hidden</td><td className="py-3 pr-6 font-mono text-xs">3-col grid</td><td className="py-3 font-mono text-xs">hidden md:grid</td></tr>
+                    <tr><td className="py-3 pr-6">Footer nav</td><td className="py-3 pr-6 font-mono text-xs">2-col grid</td><td className="py-3 pr-6 font-mono text-xs">3-col grid</td><td className="py-3 font-mono text-xs">grid grid-cols-2 lg:grid-cols-3</td></tr>
                   </tbody>
                 </table>
               </div>
