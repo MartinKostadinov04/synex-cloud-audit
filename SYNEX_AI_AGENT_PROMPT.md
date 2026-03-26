@@ -15,7 +15,23 @@ There are two repositories involved. Read Section 11 (Repository Map) to underst
 
 ---
 
-## 2. Technology Stack (Production Platform)
+## 2. Component Layer Architecture
+
+The `synex-web-design` repository contains **two distinct layers**. Always be clear about which one you are working with.
+
+```
+src/components/          ← TSX (TypeScript) — design system VIEWER app only
+src/design-system-jsx/   ← JSX (JavaScript) — portable, self-contained exports
+```
+
+- **`src/components/`** — TypeScript components used exclusively by the visual design system preview app. They use React Router DOM, hardcoded strings, and TypeScript types. **Do not adapt these directly for the platform.**
+- **`src/design-system-jsx/`** — The actual portable export layer. 24 self-contained JSX + Tailwind components. These are the starting point for any platform adaptation. Each file has no `@/` aliases, no TypeScript, and uses only Tailwind semantic tokens.
+
+When asked to find or adapt a component, always look in `src/design-system-jsx/` first.
+
+---
+
+## 3. Technology Stack (Production Platform)
 
 - **Framework**: React 18 + Inertia.js (Laravel backend, branch: `martin/eng-00`)
 - **Build tool**: Vite with `laravel-vite-plugin`
@@ -200,12 +216,43 @@ When creating a new page:
 
 There are **two repositories**. Always clarify which repo a file belongs to.
 
-### Design System Viewer (`synex-cloud-audit` repo)
+### Design System Viewer (`synex-web-design` repo)
 - **Purpose**: Standalone Vite + React app — a visual preview of all components. NOT the production app.
-- **Use it for**: Reference implementations, component source code, design tokens
-- **Component source**: `src/components/landing/`, `src/components/battery-reg/`, `src/components/resources/`, `src/components/consulting/`, `src/components/contact/`, `src/components/FAQSection.jsx`
+- **Use it for**: Visual reference, design tokens, and as the source for platform adaptation
 - **Design tokens**: `src/index.css` (same token names used in the platform)
-- **Do NOT copy-paste directly** — components need i18n and routing adaptation for the platform
+
+#### `src/components/` — TSX viewer components (do not adapt directly)
+TypeScript components used only by the viewer app. They contain hardcoded strings, React Router DOM links, and TypeScript types. **Never use these as a direct copy-paste source for the platform.**
+
+#### `src/design-system-jsx/` — JSX portable exports (adaptation source)
+24 self-contained JSX + Tailwind components. No TypeScript, no `@/` aliases, no hardcoded routing. These are the correct starting point for any platform adaptation.
+
+| File | Category |
+|---|---|
+| `HeroSection.jsx` | Landing |
+| `FeaturesSection.jsx` | Landing |
+| `BentoSection.jsx` | Landing |
+| `OpportunitiesSection.jsx` | Landing |
+| `BlogSection.jsx` | Landing |
+| `LogoCloudSection.jsx` | Landing |
+| `DemosSection.jsx` | Landing |
+| `PracticalGuideSection.jsx` | Landing |
+| `BatteryHeroSection.jsx` | Battery Reg |
+| `KeyRequirements.jsx` | Battery Reg |
+| `ComplianceBenefits.jsx` | Battery Reg |
+| `ServicesTabsSection.jsx` | Battery Reg |
+| `ConsultationCTA.jsx` | Battery Reg |
+| `BatteryPassportOverview.jsx` | Battery Reg |
+| `ResourceBlogSection.jsx` | Resources |
+| `ResourceDownloadsSection.jsx` | Resources |
+| `ConsultingNavSection.jsx` | Consulting |
+| `ContactSection.jsx` | Contact |
+| `ContactDialog.jsx` | Contact |
+| `FAQSection.jsx` | Shared |
+| `Footer.jsx` | Shared |
+| `HeroGridBackground.jsx` | Shared / Utility |
+| `NotFound.jsx` | Shared |
+| `PageHeaders.jsx` | Shared / UI (4 variants) |
 
 ### Production Platform (`SynexCloud/Platform`, branch `martin/eng-00`)
 ```
@@ -383,7 +430,7 @@ Every section in `<main>` should be wrapped in `<AnimatedContent>` for scroll-tr
 When asked to "add [Component] to the platform":
 
 1. **Check if it already exists** — look in `resources/js/Components/WebsiteUI/` (see Section 12 inventory). If it exists, just import it.
-2. **Find the reference** — locate `src/components/{category}/{ComponentName}.jsx` in the design system repo
+2. **Find the reference** — locate `src/design-system-jsx/{ComponentName}.jsx` in the design system repo. This is the portable JSX export and the correct adaptation source. The `src/components/` TSX files are for the viewer app only — do not adapt them directly.
 3. **Create the platform version** at `resources/js/Components/WebsiteUI/{ComponentName}.jsx`:
    - Replace all hardcoded strings with `formatMessage({ id: '...' })` or `<FormattedMessage id="..." />`
    - Replace `<Link to="/path">` (react-router-dom) with `<Link href={route('outer.pagename')}>` (`@inertiajs/react`)
@@ -398,26 +445,32 @@ When asked to "add [Component] to the platform":
 
 ## 18. Design System → Platform Component Map
 
-| Design System (`src/components/`) | Platform (`WebsiteUI/`) |
-|---|---|
-| `landing/HeroSection` | `WelcomeHero` ✓ exists |
-| `landing/FeaturesSection` | `FeatureSection` ✓ exists |
-| `landing/BentoSection` | `BentoGridNew` ✓ exists |
-| `landing/BlogSection` | `ResourceBlogSection` ✓ exists |
-| `landing/LogoCloudSection` | `LogoCloud` ✓ exists |
-| `landing/OpportunitiesSection` | `Cards` ✓ exists |
-| `landing/PracticalGuideSection` | `StepColumns` ✓ exists |
-| `landing/DemosSection` | ✗ needs creating |
-| `battery-reg/HeroSection` | `PictureHero` ✓ exists |
-| `battery-reg/KeyRequirements` | `Grid2x2` ✓ exists |
-| `battery-reg/ComplianceBenefits` | `FeatureSection` ✓ exists |
-| `battery-reg/ServicesTabsSection` | `BatteryRegTabs` ✓ exists |
-| `battery-reg/ConsultationCTA` | `DualCTA` ✓ exists |
-| `battery-reg/BatteryPassportOverview` | `InfoTabs` ✓ exists |
-| `resources/ResourceBlogSection` | `ResourceBlogSection` ✓ exists |
-| `resources/ResourceDownloadsSection` | `ResourceDownloadsSection` ✓ exists |
-| `consulting/ConsultingNavSection` | `ConsultingNav` ✓ exists |
-| `contact/ContactSection` | ✗ needs creating |
-| `contact/ContactDialog` | ✗ needs creating |
-| `FAQSection` | ✗ needs creating |
-| `ui/page-headers` (4 variants) | ✗ needs creating |
+The JSX export column reflects what currently exists in `src/design-system-jsx/`. The platform status column is provisional — verify against the platform repo before assuming.
+
+| Design System TSX (`src/components/`) | JSX Export (`src/design-system-jsx/`) | Platform (`WebsiteUI/`) |
+|---|---|---|
+| `landing/HeroSection` | `HeroSection.jsx` ✓ | `WelcomeHero` ✓ exists |
+| `landing/FeaturesSection` | `FeaturesSection.jsx` ✓ | `FeatureSection` ✓ exists |
+| `landing/BentoSection` | `BentoSection.jsx` ✓ | `BentoGridNew` ✓ exists |
+| `landing/BlogSection` | `BlogSection.jsx` ✓ | `ResourceBlogSection` ✓ exists |
+| `landing/LogoCloudSection` | `LogoCloudSection.jsx` ✓ | `LogoCloud` ✓ exists |
+| `landing/OpportunitiesSection` | `OpportunitiesSection.jsx` ✓ | `Cards` ✓ exists |
+| `landing/PracticalGuideSection` | `PracticalGuideSection.jsx` ✓ | `StepColumns` ✓ exists |
+| `landing/DemosSection` | `DemosSection.jsx` ✓ | — (verify platform repo) |
+| `battery-reg/HeroSection` | `BatteryHeroSection.jsx` ✓ | `PictureHero` ✓ exists |
+| `battery-reg/KeyRequirements` | `KeyRequirements.jsx` ✓ | `Grid2x2` ✓ exists |
+| `battery-reg/ComplianceBenefits` | `ComplianceBenefits.jsx` ✓ | `FeatureSection` ✓ exists |
+| `battery-reg/ServicesTabsSection` | `ServicesTabsSection.jsx` ✓ | `BatteryRegTabs` ✓ exists |
+| `battery-reg/ConsultationCTA` | `ConsultationCTA.jsx` ✓ | `DualCTA` ✓ exists |
+| `battery-reg/BatteryPassportOverview` | `BatteryPassportOverview.jsx` ✓ | `InfoTabs` ✓ exists |
+| `resources/ResourceBlogSection` | `ResourceBlogSection.jsx` ✓ | `ResourceBlogSection` ✓ exists |
+| `resources/ResourceDownloadsSection` | `ResourceDownloadsSection.jsx` ✓ | `ResourceDownloadsSection` ✓ exists |
+| `consulting/ConsultingNavSection` | `ConsultingNavSection.jsx` ✓ | `ConsultingNav` ✓ exists |
+| `contact/ContactSection` | `ContactSection.jsx` ✓ | — (verify platform repo) |
+| `contact/ContactDialog` | `ContactDialog.jsx` ✓ | — (verify platform repo) |
+| `FAQSection` | `FAQSection.jsx` ✓ | — (verify platform repo) |
+| `ui/page-headers` (4 variants) | `PageHeaders.jsx` ✓ | — (verify platform repo) |
+| `Footer` | `Footer.jsx` ✓ | `Footer` ✓ exists |
+| `ui/hero-grid-background` | `HeroGridBackground.jsx` ✓ | — utility, adapt as needed |
+| *(no TSX equivalent)* | `NotFound.jsx` ✓ | — (verify platform repo) |
+
