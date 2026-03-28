@@ -47,7 +47,7 @@ const FeaturesSection = ({ className }: { className?: string }) => (
   <section
     className={cn("relative py-24 sm:py-32 overflow-hidden", className)}
     style={{
-      background: `linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.3) 10%, hsl(var(--secondary) / 0.3) 90%, hsl(var(--background)) 100%)`,
+      background: `linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 10%, hsl(var(--secondary)) 90%, hsl(var(--background)) 100%)`,
     }}
   >
     {/* Subtle dot pattern */}

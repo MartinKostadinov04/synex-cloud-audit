@@ -32,7 +32,7 @@ const OpportunitiesSection = () => (
   <section
     className="py-24 sm:py-32"
     style={{
-      background: `linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.3) 10%, hsl(var(--secondary) / 0.3) 90%, hsl(var(--background)) 100%)`,
+      background: `linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 10%, hsl(var(--secondary)) 90%, hsl(var(--background)) 100%)`,
     }}
   >
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
