@@ -29,7 +29,12 @@ const opportunities = [
 ];
 
 const OpportunitiesSection = () => (
-  <section className="py-24 sm:py-32 bg-background">
+  <section
+    className="py-24 sm:py-32"
+    style={{
+      background: `linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.3) 10%, hsl(var(--secondary) / 0.3) 90%, hsl(var(--background)) 100%)`,
+    }}
+  >
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="mx-auto max-w-2xl lg:text-center">
         <p className="text-base font-semibold text-primary">Opportunities</p>

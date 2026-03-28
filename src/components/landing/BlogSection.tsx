@@ -46,7 +46,7 @@ const posts = [
 ];
 
 const BlogSection = () => (
-  <section className="py-24 sm:py-32 bg-secondary/30">
+  <section className="py-24 sm:py-32 bg-background">
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="mx-auto max-w-2xl lg:text-center">
         <p className="text-base font-semibold text-primary">From the blog</p>
