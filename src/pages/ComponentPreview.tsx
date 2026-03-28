@@ -43,7 +43,6 @@ const FAQ_ITEMS = [
 ];
 
 const ComponentPreview = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
