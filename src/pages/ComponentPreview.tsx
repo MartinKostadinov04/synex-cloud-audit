@@ -118,8 +118,7 @@ const ComponentPreview = () => {
 
         <Label name="ContactDialog" />
         <div className="flex items-center justify-center py-16 bg-secondary/30">
-          <Button onClick={() => setDialogOpen(true)}>Open Contact Dialog</Button>
-          <ContactDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+          <ContactDialog />
         </div>
 
         <Label name="FAQSection" />
