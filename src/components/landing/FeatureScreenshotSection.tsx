@@ -54,15 +54,15 @@ export default function FeatureScreenshotSection({
           const imgOut = imageRefs.current[i];
           const imgIn = imageRefs.current[i + 1];
 
-          // Text out
-          tl.to(curr, { opacity: 0, y: -56, duration: 4, ease: "power2.inOut", force3D: true });
-          // Text in — overlap slightly
-          tl.to(next, { opacity: 1, y: 0, duration: 4, ease: "power2.out", force3D: true }, "<+=0.8");
-          // Image cross-fade
-          tl.to(imgIn, { opacity: 1, duration: 3.5, ease: "power1.out" }, "<");
-          tl.to(imgOut, { opacity: 0, duration: 3, ease: "power1.inOut" }, "<+=0.4");
-          // Hold on this slide
-          tl.to({}, { duration: 8 });
+          // Text out — travels far up, long duration for smooth scrub feel
+          tl.to(curr, { opacity: 0, y: -80, duration: 6, ease: "power1.in", force3D: true });
+          // Text in — starts after outgoing is halfway gone, rises from below
+          tl.to(next, { opacity: 1, y: 0, duration: 6, ease: "power1.out", force3D: true }, "<+=2.5");
+          // Image cross-fade — gentle, spans the full transition
+          tl.to(imgIn, { opacity: 1, duration: 5, ease: "none" }, "<-=1.5");
+          tl.to(imgOut, { opacity: 0, duration: 4, ease: "none" }, "<+=0.5");
+          // Hold on completed slide
+          tl.to({}, { duration: 6 });
         });
         // Final hold
         tl.to({}, { duration: 2 });
