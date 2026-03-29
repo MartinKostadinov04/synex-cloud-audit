@@ -1,29 +1,48 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FeatureScreenshotSection from "@/components/landing/FeatureScreenshotSection";
+import { ShieldCheck, BarChart3, Globe, Leaf, FileText, RefreshCw, Eye, Link } from "lucide-react";
 
 const demoSlides = [
   {
     heading: "Digital Battery Passport",
-    body: "Track the full lifecycle of every battery — from raw material sourcing to end-of-life recycling — with a tamper-proof digital passport that meets EU Battery Regulation requirements.",
+    body: "Track the full lifecycle of every battery — from raw material sourcing to end-of-life recycling — with a tamper-proof digital passport.",
+    features: [
+      { icon: ShieldCheck, text: "EU Battery Regulation 2023/1542 compliant" },
+      { icon: FileText, text: "Automated documentation & audit trail" },
+      { icon: RefreshCw, text: "End-of-life recycling data included" },
+    ],
     imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&q=80",
     imageAlt: "Battery passport dashboard",
   },
   {
     heading: "Real-Time Compliance Monitoring",
-    body: "Stay ahead of regulatory changes with automated compliance checks and real-time alerts. Our platform continuously monitors your supply chain against the latest EU standards.",
+    body: "Stay ahead of regulatory changes with automated compliance checks and real-time alerts across your entire product portfolio.",
+    features: [
+      { icon: Eye, text: "Continuous monitoring against latest EU standards" },
+      { icon: BarChart3, text: "Compliance score tracking per product line" },
+    ],
     imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
     imageAlt: "Compliance monitoring interface",
   },
   {
     heading: "Supply Chain Transparency",
-    body: "Map your entire supply chain with granular visibility into every tier. Identify risks, verify certifications, and demonstrate due diligence to regulators and stakeholders.",
+    body: "Map your entire supply chain with granular visibility into every tier.",
+    features: [
+      { icon: Globe, text: "Multi-tier supplier mapping & risk scoring" },
+      { icon: Link, text: "Certification verification at every node" },
+      { icon: ShieldCheck, text: "Due diligence reporting for regulators" },
+    ],
     imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
     imageAlt: "Supply chain visualization",
   },
   {
     heading: "Carbon Footprint Analytics",
-    body: "Calculate, report, and reduce the carbon footprint of your battery products with integrated lifecycle assessment tools and actionable reduction recommendations.",
+    body: "Calculate, report, and reduce the carbon footprint of your battery products with integrated lifecycle assessment tools.",
+    features: [
+      { icon: Leaf, text: "Scope 1–3 emissions breakdown" },
+      { icon: BarChart3, text: "Actionable reduction recommendations" },
+    ],
     imageUrl: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80",
     imageAlt: "Carbon analytics dashboard",
   },
