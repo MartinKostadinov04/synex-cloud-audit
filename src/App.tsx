@@ -12,6 +12,7 @@ import BackgroundIdeation from "./pages/BackgroundIdeation.tsx";
 import AnimationsDemo from "./pages/AnimationsDemo.tsx";
 import ComponentPreview from "./pages/ComponentPreview.tsx";
 import ComponentReview from "./pages/ComponentReview.tsx";
+import FeatureScreenshotDemo from "./pages/FeatureScreenshotDemo.tsx";
 
 const queryClient = new QueryClient();
 
